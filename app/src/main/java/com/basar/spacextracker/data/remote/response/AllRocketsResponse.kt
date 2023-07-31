@@ -1,4 +1,4 @@
-package com.basar.spacextracker.data.remote
+package com.basar.spacextracker.data.remote.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

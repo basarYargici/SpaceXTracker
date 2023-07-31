@@ -1,13 +1,17 @@
-package com.basar.spacextracker.data.remote
+package com.basar.spacextracker.data.remote.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Mass(
+data class PayloadWeight(
+    @SerializedName("id")
+    val id: String?,
     @SerializedName("kg")
     val kg: Int?,
     @SerializedName("lb")
-    val lb: Int?
+    val lb: Int?,
+    @SerializedName("name")
+    val name: String?
 ) : Parcelable
