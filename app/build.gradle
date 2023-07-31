@@ -1,18 +1,26 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     namespace 'com.basar.spacextracker'
-    compileSdk 33
+    compileSdk versions.COMPILE_ANDROID_SDK
 
+    buildFeatures {
+        viewBinding true
+    }
     defaultConfig {
         applicationId "com.basar.spacextracker"
-        minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        minSdk versions.MIN_ANDROID_SDK
+        targetSdk versions.TARGET_ANDROID_SDK
+        versionCode versions.VERSION_CODE
+        versionName versions.VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,12 +41,18 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementationAppCompat(dependencies)
+    implementationNavigation(dependencies)
+    implementationHilt(dependencies)
+    implementationNetwork(dependencies)
+    testUnit(dependencies)
+    testAndroid(dependencies)
+    implementation deps.ANDROID_CONSTRAINT_LAYOUT
+    implementation deps.MATERIAL
+    implementation deps.COROUTINES
+    implementation deps.VIEWPAGER2
+    implementation deps.COIL
+    implementation deps.SHIMMER
+    implementation deps.TIMBER
+    implementation deps.LIFECYCLE
 }
