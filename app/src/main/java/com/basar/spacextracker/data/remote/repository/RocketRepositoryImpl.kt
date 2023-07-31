@@ -1,6 +1,7 @@
 package com.basar.spacextracker.data.remote.repository
 
 import com.basar.spacextracker.data.remote.response.AllRocketsResponse
+import com.basar.spacextracker.data.remote.response.Rocket
 import com.basar.spacextracker.data.remote.service.RocketsService
 import com.basar.spacextracker.domain.repository.RocketRepository
 import kotlinx.coroutines.flow.Flow
@@ -10,4 +11,5 @@ class RocketRepositoryImpl @Inject constructor(
     private val rocketsService: RocketsService
 ) : RocketRepository {
     override suspend fun getRocketList(): Flow<AllRocketsResponse> = rocketsService.getRocketList()
+    override suspend fun getRocketById(id: Int): Flow<Rocket> = rocketsService.getRocketById(id)
 }
