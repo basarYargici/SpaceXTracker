@@ -45,6 +45,7 @@ dependencies {
     implementationAppCompat(dependencies)
     implementationNavigation(dependencies)
     implementationHilt(dependencies)
+    implementationRoom(dependencies)
     implementationNetwork(dependencies)
     testUnit(dependencies)
     testAndroid(dependencies)
