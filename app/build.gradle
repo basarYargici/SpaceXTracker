@@ -21,6 +21,7 @@ android {
         targetSdk versions.TARGET_ANDROID_SDK
         versionCode versions.VERSION_CODE
         versionName versions.VERSION_NAME
+        buildConfigField "String", "BASE_URL", '"https://api.spacexdata.com/v4/"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
