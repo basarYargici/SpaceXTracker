@@ -1,6 +1,6 @@
 package com.basar.spacextracker.di
 
-import androidx.viewbinding.BuildConfig
+import com.basar.spacextracker.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

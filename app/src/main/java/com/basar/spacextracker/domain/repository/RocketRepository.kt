@@ -3,6 +3,6 @@ package com.basar.spacextracker.domain.repository
 import com.basar.spacextracker.data.remote.response.AllRocketsResponse
 import kotlinx.coroutines.flow.Flow
 
-interface RocketsRepository {
+interface RocketRepository {
     suspend fun getRocketList(): Flow<AllRocketsResponse>
 }

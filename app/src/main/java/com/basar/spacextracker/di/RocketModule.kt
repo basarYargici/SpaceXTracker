@@ -2,7 +2,7 @@ package com.basar.spacextracker.di
 
 import com.basar.spacextracker.data.remote.repository.RocketRepositoryImpl
 import com.basar.spacextracker.data.remote.service.RocketsService
-import com.basar.spacextracker.domain.repository.RocketsRepository
+import com.basar.spacextracker.domain.repository.RocketRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RocketModule {
-
     @Provides
     @Singleton
     fun provideRocketService(retrofit: Retrofit): RocketsService = retrofit.create(RocketsService::class.java)
@@ -22,5 +21,5 @@ object RocketModule {
     @Singleton
     fun provideRocketListRepository(
         service: RocketsService
-    ): RocketsRepository = RocketRepositoryImpl(service)
+    ): RocketRepository = RocketRepositoryImpl(service)
 }
