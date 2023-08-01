@@ -9,7 +9,7 @@ def versions = [
                 ROOM             : "2.6.0-alpha02",
                 CORE_KTX         : "1.8.0",
                 ESPRESSO         : "3.4.0",
-                NAVIGATION       : "2.4.2",
+                NAVIGATION       : "2.5.3",
                 CONSTRAINT_LAYOUT: "2.1.4",
                 RECYCLERVIEW     : "1.2.1",
                 EXT              : "1.1.3",
