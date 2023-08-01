@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-@Entity
+@Entity(tableName = "image_url")
 @Parcelize
 data class ImageUrl(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "url_id") val id: Int,

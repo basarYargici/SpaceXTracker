@@ -15,15 +15,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
     @Provides
-    fun provideItemDao(appDatabase: RocketDatabase): RocketDao {
-        return appDatabase.rocketDao()
-    }
+    fun provideItemDao(appDatabase: RocketDatabase): RocketDao = appDatabase.rocketDao()
 
     @Provides
     @Singleton
-    fun provideRocketDatabase(@ApplicationContext appContext: Context): RocketDatabase {
-        return Room.databaseBuilder(
-            appContext.applicationContext, RocketDatabase::class.java, "rocket_database"
-        ).build()
-    }
+    fun provideRocketDatabase(@ApplicationContext appContext: Context) = Room.databaseBuilder(
+        appContext.applicationContext, RocketDatabase::class.java, "rocket_database"
+    ).build()
 }

@@ -1,7 +1,10 @@
 package com.basar.spacextracker.di
 
+import com.basar.spacextracker.data.local.database.RocketDao
+import com.basar.spacextracker.data.local.repository.LocalRocketRepositoryImpl
 import com.basar.spacextracker.data.remote.repository.RocketRepositoryImpl
 import com.basar.spacextracker.data.remote.service.RocketsService
+import com.basar.spacextracker.domain.repository.LocalRocketRepository
 import com.basar.spacextracker.domain.repository.RocketRepository
 import dagger.Module
 import dagger.Provides
@@ -22,4 +25,11 @@ object RocketModule {
     fun provideRocketListRepository(
         service: RocketsService
     ): RocketRepository = RocketRepositoryImpl(service)
+
+    @Provides
+    @Singleton
+    fun provideLocalRocketListRepository(
+        rocketDao: RocketDao
+    ): LocalRocketRepository = LocalRocketRepositoryImpl(rocketDao)
+
 }
