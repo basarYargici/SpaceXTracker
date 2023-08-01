@@ -10,9 +10,9 @@ class GetAllRocketsUseCase @Inject constructor(
     private val rocketRepository: RocketRepository
 ) {
     suspend operator fun invoke(): Flow<List<RocketListUI>?> = rocketRepository.getRocketList().map {
-        it.rockets?.map { rocket ->
+        it?.map { rocket ->
             RocketListUI(
-                rocket.flickrImages?.firstOrNull()
+                rocket.flickrImages
             )
         }
     }

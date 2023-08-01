@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RocketListUI(
-    var imageUrl: String? = null,
+    var imageUrl: List<String>? = null,
     var name: String? = null,
     var isActive: Boolean? = null,
     var firstFlight: String? = null,

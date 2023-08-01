@@ -32,8 +32,7 @@ object NetworkModule {
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor
     ) = OkHttpClient.Builder().readTimeout(API_SERVICE_TIMEOUT, TimeUnit.SECONDS)
-        .connectTimeout(API_SERVICE_TIMEOUT, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
-        .addInterceptor(httpLoggingInterceptor).build()
+        .connectTimeout(API_SERVICE_TIMEOUT, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor).build()
 
     @Singleton
     @Provides

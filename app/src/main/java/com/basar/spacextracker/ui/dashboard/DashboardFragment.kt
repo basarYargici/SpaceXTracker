@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.basar.spacextracker.databinding.FragmentDashboardBinding
-import com.basar.spacextracker.ui.favourites.FavouritesFragment
-import com.basar.spacextracker.ui.rockets.RocketsFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
 
@@ -28,7 +27,7 @@ class DashboardFragment : Fragment() {
     }
 
     fun initViews() {
-        binding.viewPager.adapter = AdapterPagerMainTab(this)
+        binding.viewPager.adapter = AdapterPagerDashboardTabs(this)
 
         val tabNames = arrayListOf(
             "Dashboard", "Favourites"
@@ -40,11 +39,3 @@ class DashboardFragment : Fragment() {
     }
 }
 
-class AdapterPagerMainTab(fragment: Fragment) : FragmentStateAdapter(fragment) {
-
-    private var items = arrayListOf(RocketsFragment(), FavouritesFragment())
-
-    override fun getItemCount(): Int = items.size
-
-    override fun createFragment(position: Int) = items[position]
-}
