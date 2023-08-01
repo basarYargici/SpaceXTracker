@@ -11,9 +11,21 @@ class GetAllRocketsUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(): Flow<List<RocketListUI>?> = rocketRepository.getRocketList().map {
         it?.map { rocket ->
-            RocketListUI(
-                rocket.flickrImages
-            )
+            with(rocket) {
+                RocketListUI(
+                    flickrImages,
+                    name,
+                    active,
+                    firstFlight,
+                    country,
+                    company,
+                    wikipedia,
+                    description,
+                    height?.meters.toString(),
+                    mass?.kg.toString(),
+                    engines?.number.toString()
+                )
+            }
         }
     }
 }
