@@ -20,6 +20,6 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideRocketDatabase(@ApplicationContext appContext: Context) = Room.databaseBuilder(
-        appContext.applicationContext, RocketDatabase::class.java, "rocket_database"
+        appContext.applicationContext, RocketDatabase::class.java, "rocket_db"
     ).build()
 }
