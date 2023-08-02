@@ -9,9 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.basar.spacextracker.data.local.model.ImageUrl
+import com.basar.spacextracker.data.local.model.Converters
 import com.basar.spacextracker.data.local.model.Rocket
-import com.basar.spacextracker.data.local.model.RocketWithImages
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,20 +52,26 @@ class RocketsFragment : Fragment() {
             with(rocketAdapter) {
                 itemClickListener = {
                     Timber.d(it.toString())
+                    viewModel.getFavs()
                 }
                 favItemClickListener = {
-                    val rocketWithImages = RocketWithImages(rocket = Rocket(
-                        id = 0,
-                        rocketName = it.name ?: "",
-                        country = it.country ?: "",
-                        company = it.company ?: "",
-                        isFavorite = !it.isFavourite,
-                        description = it.description ?: ""
-                    ), imageUrls = it.imageUrl?.map { url ->
-                        ImageUrl(id = 0, url = url)
-                    } ?: emptyList())
+                    with(it) {
+                        if (!isFavourite) {
+                            viewModel.deleteRocket(id)
+                        } else {
+                            val rocketWithImages = Rocket(
+                                id = id,
+                                rocketName = name ?: "",
+                                country = country ?: "",
+                                company = company ?: "",
+                                isFavorite = isFavourite,
+                                description = description ?: "",
+                                images = Converters.fromArrayList(imageUrl)
+                            )
 
-                    viewModel.addRocket(rocketWithImages)
+                            viewModel.addRocket(rocketWithImages)
+                        }
+                    }
                     Timber.d(it.toString())
                 }
                 adapter = this

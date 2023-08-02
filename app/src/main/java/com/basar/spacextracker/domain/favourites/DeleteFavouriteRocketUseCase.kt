@@ -6,5 +6,5 @@ import javax.inject.Inject
 class DeleteFavouriteRocketUseCase @Inject constructor(
     private val rocketRepository: LocalRocketRepository
 ) {
-    suspend operator fun invoke(id: Int): Unit = rocketRepository.deleteRocketById(id)
+    suspend operator fun invoke(id: String): Unit = rocketRepository.deleteRocketById(id)
 }

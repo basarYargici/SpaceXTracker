@@ -13,6 +13,7 @@ class GetAllRocketsUseCase @Inject constructor(
         it?.map { rocket ->
             with(rocket) {
                 RocketListUI(
+                    id ?: "0",
                     flickrImages,
                     name,
                     active,

@@ -1,7 +1,6 @@
 package com.basar.spacextracker.domain.uimodel
 
 import android.os.Parcelable
-import com.basar.spacextracker.data.local.model.ImageUrl
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

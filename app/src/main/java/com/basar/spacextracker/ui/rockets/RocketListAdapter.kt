@@ -30,6 +30,7 @@ class RocketListAdapter : ListAdapter<RocketListUI, RocketListAdapter.RocketList
                     tvWeight.text = "$weight kilograms"
                     tvCountry.text = country
                     tvEngine.text = "$engineCount engines"
+                    ivFav.isSelected = isFavourite
                     materialCV.setOnClickListener {
                         itemClickListener?.invoke(rocket)
                     }
