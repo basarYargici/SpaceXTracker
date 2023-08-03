@@ -16,8 +16,6 @@ class GetAllRocketsUseCase @Inject constructor(
                     id ?: "0",
                     flickrImages,
                     name,
-                    active,
-                    firstFlight,
                     country,
                     company,
                     wikipedia,

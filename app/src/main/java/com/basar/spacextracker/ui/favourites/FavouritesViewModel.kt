@@ -1,10 +1,7 @@
-package com.basar.spacextracker.ui.rockets
+package com.basar.spacextracker.ui.favourites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.basar.spacextracker.data.local.model.Rocket
-import com.basar.spacextracker.domain.dashboard.GetAllRocketsUseCase
-import com.basar.spacextracker.domain.favourites.AddFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.GetFavouriteRocketUseCase
 import com.basar.spacextracker.domain.uimodel.RocketListUI
@@ -19,24 +16,20 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class RocketsViewModel @Inject constructor(
-    private val rocketUseCase: GetAllRocketsUseCase,
-    private val addFavouriteRocketUseCase: AddFavouriteRocketUseCase,
-    private val deleteFavouriteRocketUseCase: DeleteFavouriteRocketUseCase,
+class FavouritesViewModel @Inject constructor(
+    private val getFavouriteRocketUseCase: GetFavouriteRocketUseCase,
+    private val deleteFavouriteRocketUseCase: DeleteFavouriteRocketUseCase
 ) : ViewModel() {
     private val _rocketList = MutableStateFlow<List<RocketListUI>?>(null)
     var rocketList = _rocketList
 
-    private val _isSuccessfullyUpdated = MutableStateFlow<Boolean?>(null)
-    var isSuccessfullyUpdated = _isSuccessfullyUpdated
-
     fun initVM() {
-        getRocketList()
+        getFavouriteRocketList()
     }
 
-    private fun getRocketList() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getFavouriteRocketList() = viewModelScope.launch(Dispatchers.IO) {
         Timber.d("coroutine: ${this.coroutineContext}")
-        rocketUseCase.invoke().onStart {
+        getFavouriteRocketUseCase().onStart {
             Timber.d("Onstart")
         }.onCompletion {
             Timber.d("onCompletion")
@@ -44,22 +37,8 @@ class RocketsViewModel @Inject constructor(
             Timber.d("e $it")
         }.collect {
             Timber.d("collect")
-            _rocketList.emit(it)
-            Timber.d("rocket ${rocketList.value}")
-        }
-    }
-
-    fun addRocket(rocket: Rocket) = viewModelScope.launch(Dispatchers.IO) {
-        Timber.d("coroutine: ${this.coroutineContext}")
-        addFavouriteRocketUseCase(rocket).onStart {
-            Timber.d("Onstart")
-        }.onCompletion {
-            Timber.d("onCompletion")
-        }.catch {
-            Timber.d("e $it")
-        }.collect {
-            Timber.d("collect")
-            isSuccessfullyUpdated.emit(it)
+            rocketList.emit(it)
+//                isSuccessfullyUpdated.emit(it)
             Timber.d("isSuccessfullyUpdated $it")
         }
     }

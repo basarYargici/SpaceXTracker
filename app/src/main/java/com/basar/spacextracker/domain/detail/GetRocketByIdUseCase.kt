@@ -12,7 +12,7 @@ class GetRocketByIdUseCase @Inject constructor(
     suspend operator fun invoke(id: Int): Flow<RocketDetailUI?> =
         rocketRepository.getRocketById(id).map { rocket ->
             RocketDetailUI(
-                rocket.flickrImages
+                id.toString()
             )
         }
 }

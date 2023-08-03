@@ -9,8 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.basar.spacextracker.data.local.model.Converters
-import com.basar.spacextracker.data.local.model.Rocket
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -52,24 +50,14 @@ class RocketsFragment : Fragment() {
             with(rocketAdapter) {
                 itemClickListener = {
                     Timber.d(it.toString())
-                    viewModel.getFavs()
+                    // TODO: navigate to detail
                 }
                 favItemClickListener = {
                     with(it) {
                         if (!isFavourite) {
                             viewModel.deleteRocket(id)
                         } else {
-                            val rocketWithImages = Rocket(
-                                id = id,
-                                rocketName = name ?: "",
-                                country = country ?: "",
-                                company = company ?: "",
-                                isFavorite = isFavourite,
-                                description = description ?: "",
-                                images = Converters.fromArrayList(imageUrl)
-                            )
-
-                            viewModel.addRocket(rocketWithImages)
+                            viewModel.addRocket(it.toRocket())
                         }
                     }
                     Timber.d(it.toString())

@@ -12,12 +12,16 @@ import java.lang.reflect.Type
 @Entity(tableName = "rocket")
 data class Rocket(
     @PrimaryKey @ColumnInfo(name = "rocket_id") val id: String,
-    @ColumnInfo(name = "rocketName") val rocketName: String,
-    @ColumnInfo(name = "country") val country: String,
-    @ColumnInfo(name = "company") val company: String,
-    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "images") val images: String
+    @ColumnInfo(name = "rocketName") val name: String? = null,
+    @ColumnInfo(name = "country") val country: String? = null,
+    @ColumnInfo(name = "company") val company: String? = null,
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean? = null,
+    @ColumnInfo(name = "description") val description: String? = null,
+    @ColumnInfo(name = "images") val images: String? = null,
+    @ColumnInfo(name = "wikipedia") val wikipedia: String? = null,
+    @ColumnInfo(name = "height") val height: String? = null,
+    @ColumnInfo(name = "weight") val weight: String? = null,
+    @ColumnInfo(name = "engineCount") val engineCount: String? = null,
 )
 
 object Converters {
