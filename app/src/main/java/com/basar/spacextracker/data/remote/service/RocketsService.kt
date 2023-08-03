@@ -8,6 +8,6 @@ interface RocketsService {
     @GET("rockets")
     suspend fun getRocketList(): List<Rocket>?
 
-    @GET("rocket/{rocket_id}")
-    fun getRocketById(@Path("rocket_id") rocketId: Int): Rocket
+    @GET("rockets/{rocket_id}")
+    suspend fun getRocketById(@Path("rocket_id") rocketId: String): Rocket
 }

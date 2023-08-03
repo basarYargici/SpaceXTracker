@@ -10,7 +10,7 @@ import com.basar.spacextracker.databinding.ItemRocketBinding
 import com.basar.spacextracker.domain.uimodel.RocketListUI
 
 class RocketListAdapter : ListAdapter<RocketListUI, RocketListAdapter.RocketListViewHolder>(DiffCallback()) {
-    var itemClickListener: ((RocketListUI?) -> Unit)? = null
+    var itemClickListener: ((RocketListUI) -> Unit)? = null
     var favItemClickListener: ((RocketListUI) -> Unit)? = null
 
     private class DiffCallback : DiffUtil.ItemCallback<RocketListUI>() {

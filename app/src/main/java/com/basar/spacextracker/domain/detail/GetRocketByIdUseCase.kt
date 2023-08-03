@@ -9,10 +9,24 @@ import javax.inject.Inject
 class GetRocketByIdUseCase @Inject constructor(
     private val rocketRepository: RocketRepository
 ) {
-    suspend operator fun invoke(id: Int): Flow<RocketDetailUI?> =
+    suspend operator fun invoke(id: String): Flow<RocketDetailUI?> =
         rocketRepository.getRocketById(id).map { rocket ->
-            RocketDetailUI(
-                id.toString()
-            )
+            with(rocket) {
+                RocketDetailUI(
+                    id,
+                    rocket.flickrImages,
+                    name,
+                    active,
+                    firstFlight,
+                    country,
+                    company,
+                    wikipedia,
+                    description,
+                    height?.meters.toString(),
+                    mass?.kg.toString(),
+                    engines?.number.toString(),
+                    isFavourite = false
+                )
+            }
         }
 }
