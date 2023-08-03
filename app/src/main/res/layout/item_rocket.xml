@@ -21,11 +21,12 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:transitionName="iv_rocket"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/rocketPlaceholder" />
+            tools:src="@drawable/rocketplaceholder" />
 
         <ImageView
             android:id="@+id/ivFav"

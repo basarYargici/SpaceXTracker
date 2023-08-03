@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
+import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -50,7 +52,11 @@ class RocketsFragment : Fragment() {
             with(rocketAdapter) {
                 itemClickListener = {
                     Timber.d(it.toString())
-                    // TODO: navigate to detail
+                    findNavController().navigate(
+                        DashboardFragmentDirections.toDetailsFragment(
+                            it.id
+                        )
+                    )
                 }
                 favItemClickListener = {
                     with(it) {
