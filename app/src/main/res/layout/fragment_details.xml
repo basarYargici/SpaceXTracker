@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.rockets.RocketsFragment">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <include layout="@layout/placeholder_details" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="rvImages,tvName,tvDescription,tvHeight,tvWeight,tvEngine"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvImages"
         android:layout_width="0dp"
@@ -25,6 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvImages"
@@ -34,70 +57,50 @@
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="@+id/tvName"
         app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeight"
         tools:text="Description" />
-
-    <ImageView
-        android:id="@+id/ivHeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="center"
-        android:src="@drawable/ic_height"
-        app:layout_constraintStart_toStartOf="@+id/tvDescription"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
     <TextView
         android:id="@+id/tvHeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivHeight"
-        app:layout_constraintStart_toEndOf="@+id/ivHeight"
-        app:layout_constraintTop_toTopOf="@+id/ivHeight"
-        tools:text="2332m" />
-
-    <ImageView
-        android:id="@+id/ivWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="center"
-        android:src="@drawable/ic_weight"
-        app:layout_constraintStart_toStartOf="@+id/ivHeight"
-        app:layout_constraintTop_toBottomOf="@+id/ivHeight" />
+        android:layout_marginTop="4dp"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:drawableLeftCompat="@drawable/ic_height"
+        app:layout_constraintEnd_toStartOf="@id/tvWeight"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="2332 meters" />
 
     <TextView
         android:id="@+id/tvWeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivWeight"
-        app:layout_constraintStart_toEndOf="@+id/ivWeight"
-        app:layout_constraintTop_toTopOf="@+id/ivWeight"
-        tools:text="232 kg" />
-
-
-    <ImageView
-        android:id="@+id/ivEngine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="center"
-        android:src="@drawable/ic_engine"
-        app:layout_constraintStart_toStartOf="@+id/ivWeight"
-        app:layout_constraintTop_toBottomOf="@+id/ivWeight" />
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        app:drawableLeftCompat="@drawable/ic_weight"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHeight"
+        app:layout_constraintEnd_toStartOf="@id/tvEngine"
+        app:layout_constraintStart_toEndOf="@+id/tvHeight"
+        app:layout_constraintTop_toTopOf="@+id/tvHeight"
+        tools:text="232 kg" />
 
     <TextView
         android:id="@+id/tvEngine"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivEngine"
-        app:layout_constraintStart_toEndOf="@+id/ivEngine"
-        app:layout_constraintTop_toTopOf="@+id/ivEngine"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        app:drawableLeftCompat="@drawable/ic_engine"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
+        app:layout_constraintEnd_toEndOf="@+id/tvName"
+        app:layout_constraintStart_toEndOf="@+id/tvWeight"
+        app:layout_constraintTop_toTopOf="@+id/tvWeight"
         tools:text="4 engine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

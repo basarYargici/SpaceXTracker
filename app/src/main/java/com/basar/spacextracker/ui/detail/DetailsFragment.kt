@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.basar.spacextracker.databinding.FragmentDetailsBinding
+import com.basar.spacextracker.ext.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -43,14 +44,22 @@ class DetailsFragment : Fragment() {
                         with(binding) {
                             tvDescription.text = rocket.description
                             tvName.text = rocket.name
-                            tvHeight.text = rocket.height
-                            tvWeight.text = rocket.weight
-                            tvEngine.text = rocket.engineCount
+                            tvHeight.text = "${rocket.height} meters"
+                            tvWeight.text = "${rocket.weight} kilograms"
+                            tvEngine.text = "${rocket.engineCount} engines"
                         }
                         rocket.imageUrl?.let { url ->
                             detailsAdapter.submitList(url)
                         }
                     }
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showLoading.collect {
+                    binding.shimmer.visibleIf(it)
+                    binding.group.visibleIf(!it)
                 }
             }
         }
