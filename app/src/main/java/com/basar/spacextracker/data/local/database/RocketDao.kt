@@ -11,7 +11,7 @@ interface RocketDao {
     fun getRocketList(): Flow<List<Rocket>>
 
     @Query("SELECT * FROM rocket WHERE is_favorite = 1")
-    fun getFavouriteRockets(): List<Rocket>
+    fun getFavouriteRockets(): Flow<List<Rocket>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRocket(rocket: Rocket)

@@ -11,7 +11,7 @@ class LocalRocketRepositoryImpl @Inject constructor(
 ) : LocalRocketRepository {
 
     override fun getRocketList(): Flow<List<Rocket>> = rocketDao.getRocketList()
-    override fun getFavouriteRockets(): List<Rocket> = rocketDao.getFavouriteRockets()
+    override fun getFavouriteRockets(): Flow<List<Rocket>> = rocketDao.getFavouriteRockets()
     override fun addRocket(rocket: Rocket): Unit = rocketDao.addRocket(rocket)
     override suspend fun deleteRocketById(id: String) = rocketDao.deleteRocketById(id)
 }

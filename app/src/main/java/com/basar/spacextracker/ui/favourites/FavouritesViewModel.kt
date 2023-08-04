@@ -20,8 +20,8 @@ class FavouritesViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(FavouriteUIState(true, emptyList()))
     var uiState = _uiState.asStateFlow()
+    private var favList: MutableList<RocketUIItem>? = null
 
-    private var rocketList: MutableList<RocketUIItem>? = null
     fun getFavouriteRocketList() = viewModelScope.launch(Dispatchers.IO) {
         getFavouriteRocketUseCase().onStart {
             _uiState.emit(
@@ -34,10 +34,10 @@ class FavouritesViewModel @Inject constructor(
         }.catch {
             Timber.d("e $it")
         }.collect { itemList ->
-            rocketList = itemList?.toMutableList()
+            favList = itemList?.toMutableList()
             _uiState.emit(
                 _uiState.value.copy(
-                    isLoading = false, items = itemList ?: emptyList()
+                    isLoading = false, items = favList ?: emptyList()
                 )
             )
         }
@@ -46,13 +46,11 @@ class FavouritesViewModel @Inject constructor(
     fun deleteRocket(id: String) = viewModelScope.launch(Dispatchers.IO) {
         Timber.d("coroutine: ${this.coroutineContext}")
         deleteFavouriteRocketUseCase(id)
-        rocketList?.removeIf { it.id == id }
         _uiState.emit(
             _uiState.value.copy(
-                isLoading = false, items = rocketList ?: emptyList()
+                isLoading = false, items = favList ?: emptyList()
             )
         )
-
     }
 }
 

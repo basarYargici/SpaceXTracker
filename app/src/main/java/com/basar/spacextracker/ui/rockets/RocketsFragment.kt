@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import com.basar.spacextracker.ext.visibleIf
+import com.basar.spacextracker.ui.RocketSharedViewModel
 import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,6 +27,7 @@ class RocketsFragment : Fragment() {
     private var _binding: FragmentRocketsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: RocketsViewModel by viewModels()
+    private val sharedVM: RocketSharedViewModel by activityViewModels()
     private lateinit var rocketAdapter: RocketListAdapter
 
     override fun onCreateView(
@@ -48,13 +51,15 @@ class RocketsFragment : Fragment() {
                 viewModel.uiState.collect { state ->
                     setShimmerLoadingVisibility(state)
                     setRocketList(state)
-//                    state.snackBar?.let {
-//                        if (it.shouldShow) {
-//                            Snackbar.make(
-//                                binding.root, it.content, Snackbar.LENGTH_LONG
-//                            ).show()
-//                        }
-//                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                sharedVM.deletedItemId.collect { id ->
+                    viewModel.uiState.value.items.firstOrNull { it.id == id }?.isFavourite = false
+                    rocketAdapter.submitList(viewModel.uiState.value.items)
                 }
             }
         }
@@ -67,7 +72,7 @@ class RocketsFragment : Fragment() {
     private fun setRocketList(state: RocketsUIState) {
         binding.rvRockets.visibleIf(!state.isLoading)
         if (state.items.isNotEmpty()) {
-            rocketAdapter.submitList(state.items.toMutableList())
+            rocketAdapter.submitList(state.items)
         }
     }
 

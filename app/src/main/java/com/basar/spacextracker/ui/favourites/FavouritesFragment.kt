@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentFavouritesBinding
 import com.basar.spacextracker.ext.visibleIf
+import com.basar.spacextracker.ui.RocketSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,6 +24,7 @@ class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FavouritesViewModel by viewModels()
+    private val sharedVM: RocketSharedViewModel by activityViewModels()
     private lateinit var favouritesAdapter: FavouritesAdapter
 
     override fun onCreateView(
@@ -57,7 +60,7 @@ class FavouritesFragment : Fragment() {
 
     private fun setRocketList(state: FavouriteUIState) {
         binding.rvRockets.visibleIf(!state.isLoading)
-        favouritesAdapter.submitList(state.items.toMutableList())
+        favouritesAdapter.submitList(state.items)
     }
 
     private fun setNotFoundVisibility(state: FavouriteUIState) {
@@ -69,7 +72,10 @@ class FavouritesFragment : Fragment() {
     private fun initAdapter() {
         favouritesAdapter = FavouritesAdapter().apply {
             itemClickListener = {
-                viewModel.deleteRocket(it.id)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    sharedVM.deletedItemId.emit(it.id)
+                    viewModel.deleteRocket(it.id)
+                }
             }
         }
     }

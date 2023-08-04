@@ -11,11 +11,7 @@ import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,10 +35,11 @@ class RocketsViewModel @Inject constructor(
     }
 
     fun getRocketList() = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-        val jobs = listOf(launch { getRockets() }, launch { getFavouriteRockets() })
-        jobs.joinAll()
+        getRemoteRockets().zip(getFavouriteRockets()) { itemList, favs ->
+            rocketList = itemList ?: emptyList()
+            favList = favs ?: emptyList()
+        }.collect()
 
-        Timber.d("here: ${this.coroutineContext}")
         rocketList.map { item ->
             if (favList.firstOrNull { it.id == item.id } != null) {
                 item.isFavourite = true
@@ -53,20 +50,15 @@ class RocketsViewModel @Inject constructor(
         )
     }
 
-    private suspend fun getRockets() = rocketUseCase().onStart {
+    private suspend fun getRemoteRockets(): Flow<List<RocketUIItem>?> = rocketUseCase().onStart {
         _uiState.emit(
             _uiState.value.copy(isLoading = true)
         )
-    }.collect { itemList ->
-        rocketList = itemList ?: emptyList()
     }
 
-    private suspend fun getFavouriteRockets() = getFavouriteRocketUseCase().collect { itemList ->
-        favList = itemList ?: emptyList()
-    }
+    private fun getFavouriteRockets(): Flow<List<RocketUIItem>?> = getFavouriteRocketUseCase()
 
     fun addRocket(rocket: Rocket) = viewModelScope.launch(Dispatchers.IO) {
-        Timber.d("coroutine: ${this.coroutineContext}")
         addFavouriteRocketUseCase(rocket).catch {
             Timber.d("e $it")
         }.collect {}
