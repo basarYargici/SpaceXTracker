@@ -12,8 +12,8 @@ class FavouritesAdapter : DataBindingAdapter<RocketUIItem>(FalseDiffCallback()) 
     override fun getItemLayoutId(viewType: Int): Int = R.layout.item_rocket
 
     override fun onBindViewHolder(holder: DataBindingViewHolder<RocketUIItem>, position: Int) {
-        super.onBindViewHolder(holder, position)
         val item = getItem(position)
+        holder.bind(item)
 
         if (holder.binding is ItemRocketBinding) {
             with(holder.binding.ivFav) {

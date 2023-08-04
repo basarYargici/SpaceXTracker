@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentFavouritesBinding
 import com.basar.spacextracker.ext.visibleIf
-import com.basar.spacextracker.ui.rockets.RocketListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment() {
