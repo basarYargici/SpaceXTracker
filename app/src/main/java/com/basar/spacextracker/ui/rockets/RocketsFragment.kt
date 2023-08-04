@@ -58,8 +58,9 @@ class RocketsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedVM.deletedItemId.collect { id ->
-                    viewModel.uiState.value.items.firstOrNull { it.id == id }?.isFavourite = false
-                    rocketAdapter.submitList(viewModel.uiState.value.items)
+                    val items = viewModel.uiState.value.items
+                    items.firstOrNull { it.id == id }?.isFavourite = false
+                    rocketAdapter.submitList(items.toList())
                 }
             }
         }
