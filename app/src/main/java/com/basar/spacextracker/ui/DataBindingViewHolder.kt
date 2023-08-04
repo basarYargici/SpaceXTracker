@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui.rockets
+package com.basar.spacextracker.ui
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView

@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCV"
+    <data>
+
+        <variable
+            name="model"
+            type="String" />
+    </data>
+
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        app:strokeColor="@color/cardview_shadow_start_color"
-        app:strokeWidth="1dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivRocket"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:transitionName="iv_rocket"
-            tools:src="@drawable/rocketplaceholder" />
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCV"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/cardview_shadow_start_color"
+            app:strokeWidth="1dp">
 
-</FrameLayout>
+            <ImageView
+                android:id="@+id/ivRocket"
+                imageUrl="@{model}"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:transitionName="iv_rocket"
+                tools:src="@drawable/rocketplaceholder" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+</layout>

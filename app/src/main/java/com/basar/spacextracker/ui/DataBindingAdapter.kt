@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui.rockets
+package com.basar.spacextracker.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class DataBindingAdapter<T : Any>(
+abstract class DataBindingAdapter<T>(
     diffCallback: DiffUtil.ItemCallback<T> = EmptyDiffCallBack(), var currentSelected: T? = null
 ) : ListAdapter<T, DataBindingViewHolder<T>>(diffCallback) {
 
