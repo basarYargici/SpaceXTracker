@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui.favourites
+package com.basar.spacextracker.ui.dashboard.favourites
 
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
 

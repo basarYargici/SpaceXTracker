@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/rocketsFragment"
-        android:name="com.basar.spacextracker.ui.rockets.RocketsFragment"
+        android:name="com.basar.spacextracker.ui.dashboard.rockets.RocketsFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_rockets">
     </fragment>

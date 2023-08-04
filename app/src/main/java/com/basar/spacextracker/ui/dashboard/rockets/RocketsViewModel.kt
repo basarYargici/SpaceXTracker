@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui.rockets
+package com.basar.spacextracker.ui.dashboard.rockets
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

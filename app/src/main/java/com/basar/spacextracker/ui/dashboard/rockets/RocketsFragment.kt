@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui.rockets
+package com.basar.spacextracker.ui.dashboard.rockets
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import com.basar.spacextracker.ext.visibleIf
-import com.basar.spacextracker.ui.RocketSharedViewModel
+import com.basar.spacextracker.ui.dashboard.RocketSharedViewModel
 import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

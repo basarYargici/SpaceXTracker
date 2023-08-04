@@ -2,8 +2,8 @@ package com.basar.spacextracker.ui.dashboard
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.basar.spacextracker.ui.favourites.FavouritesFragment
-import com.basar.spacextracker.ui.rockets.RocketsFragment
+import com.basar.spacextracker.ui.dashboard.favourites.FavouritesFragment
+import com.basar.spacextracker.ui.dashboard.rockets.RocketsFragment
 
 class AdapterPagerDashboardTabs(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

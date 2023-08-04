@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui.favourites
+package com.basar.spacextracker.ui.dashboard.favourites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentFavouritesBinding
 import com.basar.spacextracker.ext.visibleIf
-import com.basar.spacextracker.ui.RocketSharedViewModel
+import com.basar.spacextracker.ui.dashboard.RocketSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
