@@ -13,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.basar.spacextracker.R
 import com.basar.spacextracker.databinding.FragmentDetailsBinding
 import com.basar.spacextracker.ext.visibleIf
-import com.basar.spacextracker.ui.DefaultRecyclerAdapter
+import com.basar.spacextracker.ui.adapter.DefaultRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

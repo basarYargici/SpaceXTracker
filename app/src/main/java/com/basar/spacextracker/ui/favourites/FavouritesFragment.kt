@@ -24,7 +24,7 @@ class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FavouritesViewModel by viewModels()
-    private lateinit var rocketAdapter: RocketListAdapter
+    private lateinit var favouritesAdapter: FavouritesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -59,7 +59,7 @@ class FavouritesFragment : Fragment() {
 
     private fun setRocketList(state: FavouriteUIState) {
         binding.rvRockets.visibleIf(!state.isLoading)
-        rocketAdapter.submitList(state.items.toMutableList())
+        favouritesAdapter.submitList(state.items.toMutableList())
     }
 
     private fun setNotFoundVisibility(state: FavouriteUIState) {
@@ -69,11 +69,8 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        rocketAdapter = RocketListAdapter().apply {
+        favouritesAdapter = FavouritesAdapter().apply {
             itemClickListener = {
-                Timber.d(it.toString())
-            }
-            favItemClickListener = {
                 viewModel.deleteRocket(it.id)
             }
         }
@@ -81,7 +78,7 @@ class FavouritesFragment : Fragment() {
 
     private fun initRV() {
         binding.rvRockets.apply {
-            adapter = rocketAdapter
+            adapter = favouritesAdapter
             layoutManager = LinearLayoutManager(
                 context, RecyclerView.VERTICAL, false
             )

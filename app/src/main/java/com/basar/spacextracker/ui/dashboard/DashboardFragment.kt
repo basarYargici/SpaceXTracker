@@ -12,28 +12,33 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
 
-    private lateinit var binding: FragmentDashboardBinding
+    private var _binding: FragmentDashboardBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentDashboardBinding.inflate(layoutInflater)
+        _binding = FragmentDashboardBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        setViewPager()
     }
 
-    fun initViews() {
+    private fun setViewPager() {
+        setViewPagerAdapter()
+        val tabNames = arrayListOf("Dashboard", "Favourites")
+        setTabLayoutMediator(tabNames)
+    }
+
+    private fun setViewPagerAdapter() {
         binding.viewPager.adapter = AdapterPagerDashboardTabs(this)
+    }
 
-        val tabNames = arrayListOf(
-            "Dashboard", "Favourites"
-        )
-
+    private fun setTabLayoutMediator(tabNames: ArrayList<String>) {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabNames[position]
         }.attach()
