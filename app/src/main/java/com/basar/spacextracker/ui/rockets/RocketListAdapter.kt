@@ -3,9 +3,9 @@ package com.basar.spacextracker.ui.rockets
 import com.basar.spacextracker.R
 import com.basar.spacextracker.databinding.ItemRocketBinding
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
-import com.basar.spacextracker.ui.DataBindingAdapter
-import com.basar.spacextracker.ui.DataBindingViewHolder
-import com.basar.spacextracker.ui.FalseDiffCallback
+import com.basar.spacextracker.ui.adapter.DataBindingAdapter
+import com.basar.spacextracker.ui.adapter.DataBindingViewHolder
+import com.basar.spacextracker.ui.adapter.FalseDiffCallback
 
 class RocketListAdapter : DataBindingAdapter<RocketUIItem>(FalseDiffCallback()) {
 
@@ -18,11 +18,14 @@ class RocketListAdapter : DataBindingAdapter<RocketUIItem>(FalseDiffCallback()) 
         val item = getItem(position)
 
         if (holder.binding is ItemRocketBinding) {
-            holder.binding.ivFav.setOnClickListener {
-                with(item) {
-                    isFavourite = isFavourite.not()
-                    it.isSelected = isFavourite
-                    favItemClickListener?.invoke(item)
+            with(holder.binding.ivFav) {
+                isSelected = item.isFavourite
+                setOnClickListener {
+                    with(item) {
+                        isFavourite = isFavourite.not()
+                        it.isSelected = isFavourite
+                        favItemClickListener?.invoke(item)
+                    }
                 }
             }
         }

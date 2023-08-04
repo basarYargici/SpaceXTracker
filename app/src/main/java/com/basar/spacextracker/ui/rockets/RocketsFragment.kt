@@ -48,6 +48,13 @@ class RocketsFragment : Fragment() {
                 viewModel.uiState.collect { state ->
                     setShimmerLoadingVisibility(state)
                     setRocketList(state)
+//                    state.snackBar?.let {
+//                        if (it.shouldShow) {
+//                            Snackbar.make(
+//                                binding.root, it.content, Snackbar.LENGTH_LONG
+//                            ).show()
+//                        }
+//                    }
                 }
             }
         }
@@ -59,7 +66,9 @@ class RocketsFragment : Fragment() {
 
     private fun setRocketList(state: RocketsUIState) {
         binding.rvRockets.visibleIf(!state.isLoading)
-        rocketAdapter.submitList(state.items.toMutableList())
+        if (state.items.isNotEmpty()) {
+            rocketAdapter.submitList(state.items.toMutableList())
+        }
     }
 
     private fun initAdapter() {
@@ -72,7 +81,7 @@ class RocketsFragment : Fragment() {
                     if (!isFavourite) {
                         viewModel.deleteRocket(id)
                     } else {
-                        viewModel.addRocket(it.toRocket())
+                        viewModel.addRocket(it.toRocket().copy(isFavorite = true))
                     }
                 }
             }

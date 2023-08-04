@@ -11,7 +11,11 @@ import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,10 +31,7 @@ class RocketsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(RocketsUIState(true, emptyList()))
     var uiState = _uiState.asStateFlow()
 
-    // TODO: fix here
-    private var favList: List<RocketUIItem> = listOf(
-        RocketUIItem(id = "5e9d0d95eda69955f709d1eb")
-    )
+    private var favList: List<RocketUIItem> = emptyList()
     private var rocketList: List<RocketUIItem> = emptyList()
     private val exceptionHandler = CoroutineExceptionHandler { _, e ->
         val error = e.message
@@ -38,9 +39,8 @@ class RocketsViewModel @Inject constructor(
     }
 
     fun getRocketList() = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-        // TODO: fix here
-        getRockets()
-//        getFavouriteRockets()
+        val jobs = listOf(launch { getRockets() }, launch { getFavouriteRockets() })
+        jobs.joinAll()
 
         Timber.d("here: ${this.coroutineContext}")
         rocketList.map { item ->
@@ -57,30 +57,19 @@ class RocketsViewModel @Inject constructor(
         _uiState.emit(
             _uiState.value.copy(isLoading = true)
         )
-    }.catch {
-        Timber.d("exception $it")
     }.collect { itemList ->
         rocketList = itemList ?: emptyList()
     }
 
-    private suspend fun getFavouriteRockets() = getFavouriteRocketUseCase().catch {
-        Timber.d("exception $it")
-    }.collect { itemList ->
+    private suspend fun getFavouriteRockets() = getFavouriteRocketUseCase().collect { itemList ->
         favList = itemList ?: emptyList()
     }
 
     fun addRocket(rocket: Rocket) = viewModelScope.launch(Dispatchers.IO) {
         Timber.d("coroutine: ${this.coroutineContext}")
-        addFavouriteRocketUseCase(rocket).onStart {
-            Timber.d("Onstart")
-        }.onCompletion {
-            Timber.d("onCompletion")
-        }.catch {
+        addFavouriteRocketUseCase(rocket).catch {
             Timber.d("e $it")
-        }.collect {
-            Timber.d("collect")
-            Timber.d("isSuccessfullyUpdated $it")
-        }
+        }.collect {}
     }
 
     fun deleteRocket(id: String) = viewModelScope.launch(Dispatchers.IO) {
