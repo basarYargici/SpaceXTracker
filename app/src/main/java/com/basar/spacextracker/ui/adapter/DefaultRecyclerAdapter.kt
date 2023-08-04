@@ -1,4 +1,4 @@
-package com.basar.spacextracker.ui
+package com.basar.spacextracker.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 
