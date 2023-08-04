@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
+import com.basar.spacextracker.ext.visibleIf
 import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -41,6 +42,15 @@ class RocketsFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.rocketList.collect { list ->
                     rocketAdapter.submitList(list?.toMutableList())
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showLoading.collect {
+                    binding.shimmer.visibleIf(it)
+                    binding.rvRockets.visibleIf(!it)
                 }
             }
         }

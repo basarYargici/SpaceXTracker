@@ -6,14 +6,10 @@ import com.basar.spacextracker.data.local.model.Rocket
 import com.basar.spacextracker.domain.dashboard.GetAllRocketsUseCase
 import com.basar.spacextracker.domain.favourites.AddFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
-import com.basar.spacextracker.domain.favourites.GetFavouriteRocketUseCase
 import com.basar.spacextracker.domain.uimodel.RocketListUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,8 +23,8 @@ class RocketsViewModel @Inject constructor(
     private val _rocketList = MutableStateFlow<List<RocketListUI>?>(null)
     var rocketList = _rocketList
 
-    private val _isSuccessfullyUpdated = MutableStateFlow<Boolean?>(null)
-    var isSuccessfullyUpdated = _isSuccessfullyUpdated
+    private val _showLoading = MutableStateFlow(true)
+    val showLoading: StateFlow<Boolean> = _showLoading
 
     fun initVM() {
         getRocketList()
@@ -37,9 +33,9 @@ class RocketsViewModel @Inject constructor(
     private fun getRocketList() = viewModelScope.launch(Dispatchers.IO) {
         Timber.d("coroutine: ${this.coroutineContext}")
         rocketUseCase.invoke().onStart {
-            Timber.d("Onstart")
+            _showLoading.emit(true)
         }.onCompletion {
-            Timber.d("onCompletion")
+            _showLoading.emit(false)
         }.catch {
             Timber.d("e $it")
         }.collect {
@@ -59,7 +55,6 @@ class RocketsViewModel @Inject constructor(
             Timber.d("e $it")
         }.collect {
             Timber.d("collect")
-            isSuccessfullyUpdated.emit(it)
             Timber.d("isSuccessfullyUpdated $it")
         }
     }
