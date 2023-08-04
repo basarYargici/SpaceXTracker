@@ -10,6 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.basar.spacextracker.databinding.FragmentFavouritesBinding
+import com.basar.spacextracker.ext.setGone
+import com.basar.spacextracker.ext.setVisible
+import com.basar.spacextracker.ext.visibleIf
 import com.basar.spacextracker.ui.rockets.RocketListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -39,6 +42,23 @@ class FavouritesFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.rocketList.collect { list ->
                     rocketAdapter.submitList(list?.toMutableList())
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.shouldShowLoading.collect {
+                    binding.shimmer.visibleIf(it)
+                    binding.rvRockets.visibleIf(!it)
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showShowNoItemFound.collect {
+                    binding.shimmer.setGone()
+                    binding.rvRockets.setGone()
+                    binding.llNotFound.setVisible()
                 }
             }
         }
