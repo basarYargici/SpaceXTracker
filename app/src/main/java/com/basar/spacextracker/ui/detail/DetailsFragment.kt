@@ -31,35 +31,40 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initVM(args.id)
         setObservers()
         initRV()
+        viewModel.getRocketList(args.id)
     }
 
     private fun setObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.rocket.collect {
-                    it?.let { rocket ->
-                        with(binding) {
-                            tvDescription.text = rocket.description
-                            tvName.text = rocket.name
-                            tvHeight.text = "${rocket.height} meters"
-                            tvWeight.text = "${rocket.weight} kilograms"
-                            tvEngine.text = "${rocket.engineCount} engines"
-                        }
-                        rocket.imageUrl?.let { url ->
-                            detailsAdapter.submitList(url)
-                        }
-                    }
+                viewModel.uiState.collect { state ->
+                    setShimmerLoadingVisibility(state.isLoading)
+                    setRocket(state)
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.showLoading.collect {
-                    binding.shimmer.visibleIf(it)
-                    binding.group.visibleIf(!it)
+    }
+
+    private fun setShimmerLoadingVisibility(isLoading: Boolean) {
+        binding.shimmer.visibleIf(isLoading)
+    }
+
+    private fun setRocket(state: DetailsUIState) {
+        binding.group.visibleIf(!state.isLoading)
+
+        state.item?.let { rocket ->
+            rocket.apply {
+                with(binding) {
+                    tvDescription.text = description
+                    tvName.text = name
+                    tvHeight.text = "$height meters"
+                    tvWeight.text = "$weight kilograms"
+                    tvEngine.text = "$engineCount engines"
+                }
+                imageUrl?.let { url ->
+                    detailsAdapter.submitList(url)
                 }
             }
         }

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RocketDetailUI(
+data class RocketDetailUIItem(
     var id: String,
     var imageUrl: List<String>? = null,
     var name: String? = null,
