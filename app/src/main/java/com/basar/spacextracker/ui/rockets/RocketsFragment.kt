@@ -10,12 +10,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
+import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import com.basar.spacextracker.ext.visibleIf
 import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class RocketsFragment : Fragment() {
@@ -32,54 +34,61 @@ class RocketsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initVM()
-        initRV()
         setObservers()
+        initAdapter()
+        initRV()
+        viewModel.getRocketList()
     }
 
     private fun setObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.rocketList.collect { list ->
-                    rocketAdapter.submitList(list?.toMutableList())
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.showLoading.collect {
-                    binding.shimmer.visibleIf(it)
-                    binding.rvRockets.visibleIf(!it)
+                viewModel.uiState.collect { state ->
+                    setShimmerLoadingVisibility(state)
+                    setRocketList(state)
                 }
             }
         }
     }
 
+    private fun setShimmerLoadingVisibility(state: RocketsUIState) {
+        binding.shimmer.visibleIf(state.isLoading)
+    }
+
+    private fun setRocketList(state: RocketsUIState) {
+        binding.rvRockets.visibleIf(!state.isLoading)
+        rocketAdapter.submitList(state.items.toMutableList())
+    }
+
+    private fun initAdapter() {
+        rocketAdapter = RocketListAdapter().apply {
+            itemClickListener = {
+                navigateToDetails(it)
+            }
+            favItemClickListener = {
+                with(it) {
+                    if (!isFavourite) {
+                        viewModel.deleteRocket(id)
+                    } else {
+                        viewModel.addRocket(it.toRocket())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun navigateToDetails(it: RocketUIItem) {
+        findNavController().navigate(
+            DashboardFragmentDirections.toDetailsFragment(it.id)
+        )
+    }
+
     private fun initRV() {
         binding.rvRockets.apply {
-            rocketAdapter = RocketListAdapter()
-            with(rocketAdapter) {
-                itemClickListener = {
-                    Timber.d(it.toString())
-                    findNavController().navigate(
-                        DashboardFragmentDirections.toDetailsFragment(
-                            it.id
-                        )
-                    )
-                }
-                favItemClickListener = {
-                    with(it) {
-                        if (!isFavourite) {
-                            viewModel.deleteRocket(id)
-                        } else {
-                            viewModel.addRocket(it.toRocket())
-                        }
-                    }
-                    Timber.d(it.toString())
-                }
-                adapter = this
-            }
+            adapter = rocketAdapter
+            layoutManager = LinearLayoutManager(
+                context, RecyclerView.VERTICAL, false
+            )
         }
     }
 }

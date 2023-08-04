@@ -6,8 +6,10 @@ import com.basar.spacextracker.data.local.model.Rocket
 import com.basar.spacextracker.domain.dashboard.GetAllRocketsUseCase
 import com.basar.spacextracker.domain.favourites.AddFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
+import com.basar.spacextracker.domain.favourites.GetFavouriteRocketUseCase
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -19,30 +21,52 @@ class RocketsViewModel @Inject constructor(
     private val rocketUseCase: GetAllRocketsUseCase,
     private val addFavouriteRocketUseCase: AddFavouriteRocketUseCase,
     private val deleteFavouriteRocketUseCase: DeleteFavouriteRocketUseCase,
+    private val getFavouriteRocketUseCase: GetFavouriteRocketUseCase,
 ) : ViewModel() {
-    private val _rocketList = MutableStateFlow<List<RocketUIItem>?>(null)
-    var rocketList = _rocketList
 
-    private val _showLoading = MutableStateFlow(true)
-    val showLoading: StateFlow<Boolean> = _showLoading
+    private val _uiState = MutableStateFlow(RocketsUIState(true, emptyList()))
+    var uiState = _uiState.asStateFlow()
 
-    fun initVM() {
-        getRocketList()
+    // TODO: fix here
+    private var favList: List<RocketUIItem> = listOf(
+        RocketUIItem(id = "5e9d0d95eda69955f709d1eb")
+    )
+    private var rocketList: List<RocketUIItem> = emptyList()
+    private val exceptionHandler = CoroutineExceptionHandler { _, e ->
+        val error = e.message
+        Timber.v("exceptionHandler : $error")
     }
 
-    private fun getRocketList() = viewModelScope.launch(Dispatchers.IO) {
-        Timber.d("coroutine: ${this.coroutineContext}")
-        rocketUseCase.invoke().onStart {
-            _showLoading.emit(true)
-        }.onCompletion {
-            _showLoading.emit(false)
-        }.catch {
-            Timber.d("e $it")
-        }.collect {
-            Timber.d("collect")
-            _rocketList.emit(it)
-            Timber.d("rocket ${rocketList.value}")
+    fun getRocketList() = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        // TODO: fix here
+        getRockets()
+//        getFavouriteRockets()
+
+        Timber.d("here: ${this.coroutineContext}")
+        rocketList.map { item ->
+            if (favList.firstOrNull { it.id == item.id } != null) {
+                item.isFavourite = true
+            }
         }
+        _uiState.emit(
+            _uiState.value.copy(isLoading = false, items = rocketList)
+        )
+    }
+
+    private suspend fun getRockets() = rocketUseCase().onStart {
+        _uiState.emit(
+            _uiState.value.copy(isLoading = true)
+        )
+    }.catch {
+        Timber.d("exception $it")
+    }.collect { itemList ->
+        rocketList = itemList ?: emptyList()
+    }
+
+    private suspend fun getFavouriteRockets() = getFavouriteRocketUseCase().catch {
+        Timber.d("exception $it")
+    }.collect { itemList ->
+        favList = itemList ?: emptyList()
     }
 
     fun addRocket(rocket: Rocket) = viewModelScope.launch(Dispatchers.IO) {
@@ -60,8 +84,6 @@ class RocketsViewModel @Inject constructor(
     }
 
     fun deleteRocket(id: String) = viewModelScope.launch(Dispatchers.IO) {
-        Timber.d("coroutine: ${this.coroutineContext}")
         deleteFavouriteRocketUseCase(id)
     }
 }
-
