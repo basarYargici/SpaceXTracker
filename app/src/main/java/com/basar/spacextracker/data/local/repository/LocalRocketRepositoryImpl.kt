@@ -9,6 +9,7 @@ import javax.inject.Inject
 class LocalRocketRepositoryImpl @Inject constructor(
     private val rocketDao: RocketDao
 ) : LocalRocketRepository {
+
     override fun getRocketList(): Flow<List<Rocket>> = rocketDao.getRocketList()
     override fun getFavouriteRockets(): Flow<List<Rocket>> = rocketDao.getFavouriteRockets()
     override fun addRocket(rocket: Rocket): Unit = rocketDao.addRocket(rocket)

@@ -12,12 +12,14 @@ import com.basar.spacextracker.ui.detail.DetailsAdapter.DetailsViewHolder
 class DetailsAdapter : ListAdapter<String, DetailsViewHolder>(DiffCallback()) {
 
     private class DiffCallback : DiffUtil.ItemCallback<String>() {
+
         override fun areItemsTheSame(oldItem: String, newItem: String) = false
         override fun areContentsTheSame(oldItem: String, newItem: String) = oldItem == newItem
     }
 
     inner class DetailsViewHolder(private val binding: ItemRocketImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(position: Int) {
             val rocket = getItem(position)
             binding.apply {

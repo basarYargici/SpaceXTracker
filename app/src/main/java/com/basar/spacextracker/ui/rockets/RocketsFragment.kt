@@ -21,14 +21,16 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RocketsFragment : Fragment() {
-    private lateinit var binding: FragmentRocketsBinding
+
+    private var _binding: FragmentRocketsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: RocketsViewModel by viewModels()
     private lateinit var rocketAdapter: RocketListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRocketsBinding.inflate(layoutInflater)
+        _binding = FragmentRocketsBinding.inflate(layoutInflater)
         return binding.root
     }
 

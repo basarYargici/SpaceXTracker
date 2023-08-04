@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
-    private lateinit var binding: FragmentDetailsBinding
+
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
     private lateinit var detailsAdapter: DetailsAdapter
@@ -25,7 +27,7 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailsBinding.inflate(layoutInflater)
+        _binding = FragmentDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
 

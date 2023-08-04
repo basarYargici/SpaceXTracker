@@ -11,5 +11,6 @@ import com.basar.spacextracker.data.local.model.Rocket
 )
 @TypeConverters(Converters::class)
 abstract class RocketDatabase : RoomDatabase() {
+
     abstract fun rocketDao(): RocketDao
 }

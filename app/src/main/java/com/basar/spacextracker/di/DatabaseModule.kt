@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+
     @Provides
     fun provideItemDao(appDatabase: RocketDatabase): RocketDao = appDatabase.rocketDao()
 

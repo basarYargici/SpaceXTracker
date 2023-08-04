@@ -9,6 +9,7 @@ import javax.inject.Inject
 class GetAllRocketsUseCase @Inject constructor(
     private val rocketRepository: RocketRepository
 ) {
+
     suspend operator fun invoke(): Flow<List<RocketUIItem>?> = rocketRepository.getRocketList().map {
         it?.map { rocket ->
             with(rocket) {

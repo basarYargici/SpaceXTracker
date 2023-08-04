@@ -20,6 +20,7 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment() {
+
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FavouritesViewModel by viewModels()

@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
+
     private lateinit var binding: FragmentDashboardBinding
 
     override fun onCreateView(

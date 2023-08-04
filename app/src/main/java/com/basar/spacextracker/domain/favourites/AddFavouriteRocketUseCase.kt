@@ -9,6 +9,7 @@ import javax.inject.Inject
 class AddFavouriteRocketUseCase @Inject constructor(
     private val rocketRepository: LocalRocketRepository
 ) {
+
     operator fun invoke(rocket: Rocket): Flow<Boolean> {
         rocketRepository.addRocket(rocket)
         return flowOf(true)

@@ -10,6 +10,7 @@ import javax.inject.Inject
 class GetFavouriteRocketUseCase @Inject constructor(
     private val rocketRepository: LocalRocketRepository
 ) {
+
     operator fun invoke(): Flow<List<RocketUIItem>?> = rocketRepository.getFavouriteRockets().map {
         it.map { a ->
             with(a) {

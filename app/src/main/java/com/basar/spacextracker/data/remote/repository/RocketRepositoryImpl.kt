@@ -10,6 +10,7 @@ import javax.inject.Inject
 class RocketRepositoryImpl @Inject constructor(
     private val rocketsService: RocketsService
 ) : RocketRepository {
+
     override suspend fun getRocketList(): Flow<List<Rocket>?> = flowOf(rocketsService.getRocketList())
     override suspend fun getRocketById(id: String): Flow<Rocket> = flowOf(rocketsService.getRocketById(id))
 }

@@ -10,16 +10,19 @@ import com.basar.spacextracker.databinding.ItemRocketBinding
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
 
 class RocketListAdapter : ListAdapter<RocketUIItem, RocketListAdapter.RocketListViewHolder>(DiffCallback()) {
+
     var itemClickListener: ((RocketUIItem) -> Unit)? = null
     var favItemClickListener: ((RocketUIItem) -> Unit)? = null
 
     private class DiffCallback : DiffUtil.ItemCallback<RocketUIItem>() {
+
         override fun areItemsTheSame(oldItem: RocketUIItem, newItem: RocketUIItem) = false
         override fun areContentsTheSame(oldItem: RocketUIItem, newItem: RocketUIItem) = oldItem == newItem
     }
 
     inner class RocketListViewHolder(private val binding: ItemRocketBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(position: Int) {
             val rocket = getItem(position)
             binding.apply {

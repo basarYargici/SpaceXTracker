@@ -19,6 +19,7 @@ data class RocketUIItem(
     var engineCount: String? = null,
     var isFavourite: Boolean = false
 ) : Parcelable {
+
     fun toRocket() = Rocket(
         id = id,
         name = name ?: "",

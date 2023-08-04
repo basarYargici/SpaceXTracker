@@ -3,7 +3,6 @@ package com.basar.spacextracker.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basar.spacextracker.domain.detail.GetRocketByIdUseCase
-import com.basar.spacextracker.domain.uimodel.RocketDetailUIItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -15,6 +14,7 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val rocketDetailUseCase: GetRocketByIdUseCase,
 ) : ViewModel() {
+
     private val _uiState = MutableStateFlow(DetailsUIState(true))
     var uiState = _uiState.asStateFlow()
 

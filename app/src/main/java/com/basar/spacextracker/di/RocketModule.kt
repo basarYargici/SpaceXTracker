@@ -16,6 +16,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RocketModule {
+
     @Provides
     @Singleton
     fun provideRocketService(retrofit: Retrofit): RocketsService = retrofit.create(RocketsService::class.java)
@@ -31,5 +32,4 @@ object RocketModule {
     fun provideLocalRocketListRepository(
         rocketDao: RocketDao
     ): LocalRocketRepository = LocalRocketRepositoryImpl(rocketDao)
-
 }

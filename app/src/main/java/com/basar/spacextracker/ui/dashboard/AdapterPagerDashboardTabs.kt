@@ -6,6 +6,7 @@ import com.basar.spacextracker.ui.favourites.FavouritesFragment
 import com.basar.spacextracker.ui.rockets.RocketsFragment
 
 class AdapterPagerDashboardTabs(fragment: Fragment) : FragmentStateAdapter(fragment) {
+
     private var items = arrayListOf(RocketsFragment(), FavouritesFragment())
 
     override fun getItemCount(): Int = items.size

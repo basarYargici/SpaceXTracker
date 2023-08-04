@@ -1,14 +1,19 @@
 package com.basar.spacextracker.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.basar.spacextracker.R
+import androidx.appcompat.app.AppCompatActivity
+import com.basar.spacextracker.databinding.ActivityHostBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HostActivity : AppCompatActivity() {
+
+    private var _binding: ActivityHostBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_host)
+        _binding = ActivityHostBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
