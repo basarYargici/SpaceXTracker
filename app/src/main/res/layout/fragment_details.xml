@@ -10,111 +10,122 @@
             type="com.basar.spacextracker.domain.uimodel.RocketDetailUIItem" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.dashboard.rockets.RocketsFragment">
+        android:layout_height="wrap_content">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+            android:layout_height="0dp"
+            tools:context=".ui.dashboard.rockets.RocketsFragment">
 
-            <include layout="@layout/placeholder_details" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone">
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="rvImages,tvName,tvDescription,tvHeight,tvWeight,tvEngine"
-            tools:visibility="visible" />
+                <include layout="@layout/placeholder_details" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvImages"
-            android:layout_width="0dp"
-            android:layout_height="320dp"
-            android:orientation="horizontal"
-            android:paddingVertical="4dp"
-            app:flow_verticalAlign="center"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_rocket_image" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="rvImages,tvName,tvDescription,tvHeight,tvWeight,tvEngine"
+                tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@{model.name}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvImages"
-            tools:text="Name" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvImages"
+                android:layout_width="0dp"
+                android:layout_height="320dp"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp"
+                app:flow_verticalAlign="center"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_rocket_image" />
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@{model.description}"
-            app:layout_constraintEnd_toEndOf="@+id/tvName"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@+id/tvWeight"
-            tools:text="Description" />
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/TextAppearance.Material3.TitleLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:text="@{model.name}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvImages"
+                tools:text="Name" />
 
-        <TextView
-            android:id="@+id/tvHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text='@{model.height + " meters"}'
-            app:drawableLeftCompat="@drawable/ic_height"
-            app:layout_constraintEnd_toStartOf="@id/tvWeight"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
-            tools:text="2332 meters" />
+            <TextView
+                android:id="@+id/tvHeight"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text='@{model.height + " meters"}'
+                app:drawableLeftCompat="@drawable/ic_height"
+                app:layout_constraintEnd_toEndOf="@+id/tvName"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                tools:text="2332 meters" />
 
-        <TextView
-            android:id="@+id/tvWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:text='@{model.weight + " kilograms"}'
-            app:drawableLeftCompat="@drawable/ic_weight"
-            app:layout_constraintBottom_toBottomOf="@+id/tvHeight"
-            app:layout_constraintEnd_toStartOf="@id/tvEngine"
-            app:layout_constraintStart_toEndOf="@+id/tvHeight"
-            app:layout_constraintTop_toTopOf="@+id/tvHeight"
-            tools:text="232 kg" />
+            <TextView
+                android:id="@+id/tvWeight"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:text='@{model.weight + " kilograms"}'
+                app:drawableLeftCompat="@drawable/ic_weight"
+                app:layout_constraintEnd_toEndOf="@+id/tvName"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeight"
+                tools:text="232 kg" />
 
-        <TextView
-            android:id="@+id/tvEngine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:text='@{model.weight + " engines"}'
-            app:drawableLeftCompat="@drawable/ic_engine"
-            app:layout_constraintBottom_toBottomOf="@+id/tvWeight"
-            app:layout_constraintEnd_toEndOf="@+id/tvName"
-            app:layout_constraintStart_toEndOf="@+id/tvWeight"
-            app:layout_constraintTop_toTopOf="@+id/tvWeight"
-            tools:text="4 engine" />
+            <TextView
+                android:id="@+id/tvEngine"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:text='@{model.weight + " engines"}'
+                app:drawableLeftCompat="@drawable/ic_engine"
+                app:layout_constraintEnd_toEndOf="@+id/tvName"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvWeight"
+                tools:text="4 engine" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvDescription"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{model.description}"
+                app:layout_constraintEnd_toEndOf="@+id/tvName"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvEngine"
+                tools:text="Description" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

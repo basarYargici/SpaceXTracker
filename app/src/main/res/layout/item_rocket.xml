@@ -53,6 +53,7 @@
 
             <TextView
                 android:id="@+id/tvName"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
@@ -65,6 +66,7 @@
 
             <TextView
                 android:id="@+id/tvCountry"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{model.country}"
@@ -87,6 +89,7 @@
 
             <TextView
                 android:id="@+id/tvHeight"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -109,6 +112,7 @@
 
             <TextView
                 android:id="@+id/tvWeight"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -132,6 +136,7 @@
 
             <TextView
                 android:id="@+id/tvEngine"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

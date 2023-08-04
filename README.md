@@ -5,13 +5,14 @@ SpaceXTracker is an Android application that provides real-time information abou
 
 ## Features
 
--   View upcoming SpaceX launches with details such as rocket information and origin.
--   Add rockets to favorites for quick access to them.
--   Remove rockets from favorites when no longer needed.
--   Smooth and efficient user experience thanks to the integration of Kotlin Coroutines and Flows.
--   Easily navigate through different app screens using the Navigation Component.
--   Manage dependency injection with Hilt, making the codebase clean and maintainable.
--   Utilize Coil for efficient and seamless image loading.
+-  View upcoming SpaceX launches with details such as rocket information and origin.
+-  Add rockets to favorites for quick access to them.
+-  Remove rockets from favorites when no longer needed.
+-  Smooth and efficient user experience thanks to the integration of Kotlin Coroutines and Flows.
+-  Easily navigate through different app screens using the Navigation Component.
+-  Manage dependency injection with Hilt, making the codebase clean and maintainable.
+-  Utilize Coil for efficient and seamless image loading.
+-  SpaceXTracker is developed following a Single Activity Multiple Fragment  approach. This architecture promotes modularity and efficient resource management.
 
 ## Architecture
 
