@@ -1,7 +1,7 @@
 package com.basar.spacextracker.domain.dashboard
 
 import com.basar.spacextracker.domain.repository.RocketRepository
-import com.basar.spacextracker.domain.uimodel.RocketListUI
+import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -9,10 +9,10 @@ import javax.inject.Inject
 class GetAllRocketsUseCase @Inject constructor(
     private val rocketRepository: RocketRepository
 ) {
-    suspend operator fun invoke(): Flow<List<RocketListUI>?> = rocketRepository.getRocketList().map {
+    suspend operator fun invoke(): Flow<List<RocketUIItem>?> = rocketRepository.getRocketList().map {
         it?.map { rocket ->
             with(rocket) {
-                RocketListUI(
+                RocketUIItem(
                     id ?: "0",
                     flickrImages,
                     name,

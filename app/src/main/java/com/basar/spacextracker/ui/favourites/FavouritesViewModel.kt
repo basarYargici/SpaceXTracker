@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.GetFavouriteRocketUseCase
-import com.basar.spacextracker.domain.uimodel.RocketListUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -17,29 +16,27 @@ class FavouritesViewModel @Inject constructor(
     private val getFavouriteRocketUseCase: GetFavouriteRocketUseCase,
     private val deleteFavouriteRocketUseCase: DeleteFavouriteRocketUseCase
 ) : ViewModel() {
-    private val _rocketList = MutableStateFlow<List<RocketListUI>?>(null)
-    var rocketList = _rocketList
+    private val _uiState = MutableStateFlow(FavouriteUIState(true, emptyList()))
+    var uiState = _uiState.asStateFlow()
 
-    private val _shouldShowLoading = MutableStateFlow(true)
-    val shouldShowLoading: StateFlow<Boolean> = _shouldShowLoading
-
-    private val _showShowNoItemFound = MutableStateFlow(true)
-    val showShowNoItemFound: StateFlow<Boolean> = _showShowNoItemFound
-
-    fun initVM() {
-        getFavouriteRocketList()
-    }
-
-    private fun getFavouriteRocketList() = viewModelScope.launch(Dispatchers.IO) {
+    fun getFavouriteRocketList() = viewModelScope.launch(Dispatchers.IO) {
         getFavouriteRocketUseCase().onStart {
-            _shouldShowLoading.emit(true)
+            _uiState.emit(
+                _uiState.value.copy(isLoading = true)
+            )
         }.onCompletion {
-            _shouldShowLoading.emit(false)
+            _uiState.emit(
+                _uiState.value.copy(isLoading = false)
+            )
         }.catch {
             Timber.d("e $it")
-        }.collect {
-            rocketList.emit(it)
-            _showShowNoItemFound.emit(it.isNullOrEmpty())
+        }.collect { itemList ->
+            _uiState.emit(
+                _uiState.value.copy(
+                    isLoading = false,
+                    items = itemList ?: emptyList()
+                )
+            )
         }
     }
 

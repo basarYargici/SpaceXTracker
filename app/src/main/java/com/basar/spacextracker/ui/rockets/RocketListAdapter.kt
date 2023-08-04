@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.basar.spacextracker.databinding.ItemRocketBinding
-import com.basar.spacextracker.domain.uimodel.RocketListUI
+import com.basar.spacextracker.domain.uimodel.RocketUIItem
 
-class RocketListAdapter : ListAdapter<RocketListUI, RocketListAdapter.RocketListViewHolder>(DiffCallback()) {
-    var itemClickListener: ((RocketListUI) -> Unit)? = null
-    var favItemClickListener: ((RocketListUI) -> Unit)? = null
+class RocketListAdapter : ListAdapter<RocketUIItem, RocketListAdapter.RocketListViewHolder>(DiffCallback()) {
+    var itemClickListener: ((RocketUIItem) -> Unit)? = null
+    var favItemClickListener: ((RocketUIItem) -> Unit)? = null
 
-    private class DiffCallback : DiffUtil.ItemCallback<RocketListUI>() {
-        override fun areItemsTheSame(oldItem: RocketListUI, newItem: RocketListUI) = false
-        override fun areContentsTheSame(oldItem: RocketListUI, newItem: RocketListUI) = oldItem == newItem
+    private class DiffCallback : DiffUtil.ItemCallback<RocketUIItem>() {
+        override fun areItemsTheSame(oldItem: RocketUIItem, newItem: RocketUIItem) = false
+        override fun areContentsTheSame(oldItem: RocketUIItem, newItem: RocketUIItem) = oldItem == newItem
     }
 
     inner class RocketListViewHolder(private val binding: ItemRocketBinding) :

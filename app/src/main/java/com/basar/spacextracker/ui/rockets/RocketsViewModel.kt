@@ -6,7 +6,7 @@ import com.basar.spacextracker.data.local.model.Rocket
 import com.basar.spacextracker.domain.dashboard.GetAllRocketsUseCase
 import com.basar.spacextracker.domain.favourites.AddFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
-import com.basar.spacextracker.domain.uimodel.RocketListUI
+import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -20,7 +20,7 @@ class RocketsViewModel @Inject constructor(
     private val addFavouriteRocketUseCase: AddFavouriteRocketUseCase,
     private val deleteFavouriteRocketUseCase: DeleteFavouriteRocketUseCase,
 ) : ViewModel() {
-    private val _rocketList = MutableStateFlow<List<RocketListUI>?>(null)
+    private val _rocketList = MutableStateFlow<List<RocketUIItem>?>(null)
     var rocketList = _rocketList
 
     private val _showLoading = MutableStateFlow(true)

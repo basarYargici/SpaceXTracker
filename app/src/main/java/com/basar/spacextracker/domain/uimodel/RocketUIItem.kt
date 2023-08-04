@@ -6,7 +6,7 @@ import com.basar.spacextracker.data.local.model.Rocket
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RocketListUI(
+data class RocketUIItem(
     var id: String,
     var imageUrl: List<String>? = null,
     var name: String? = null,

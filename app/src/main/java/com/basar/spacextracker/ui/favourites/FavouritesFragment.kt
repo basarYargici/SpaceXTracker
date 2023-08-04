@@ -9,73 +9,86 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentFavouritesBinding
-import com.basar.spacextracker.ext.setGone
-import com.basar.spacextracker.ext.setVisible
 import com.basar.spacextracker.ext.visibleIf
 import com.basar.spacextracker.ui.rockets.RocketListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment() {
-    private lateinit var binding: FragmentFavouritesBinding
+    private var _binding: FragmentFavouritesBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: FavouritesViewModel by viewModels()
     private lateinit var rocketAdapter: RocketListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavouritesBinding.inflate(layoutInflater)
+        _binding = FragmentFavouritesBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initVM()
-        initRV()
         setObservers()
+        initAdapter()
+        initRV()
+        viewModel.getFavouriteRocketList()
     }
 
     private fun setObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.rocketList.collect { list ->
-                    rocketAdapter.submitList(list?.toMutableList())
+                viewModel.uiState.collect { state ->
+                    setShimmerLoadingVisibility(state.isLoading)
+                    setRocketList(state)
+                    setNotFoundVisibility(state)
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.shouldShowLoading.collect {
-                    binding.shimmer.visibleIf(it)
-                    binding.rvRockets.visibleIf(!it)
-                }
-            }
+    }
+
+    private fun setShimmerLoadingVisibility(isLoading: Boolean) {
+        binding.shimmer.visibleIf(isLoading)
+    }
+
+    private fun setRocketList(state: FavouriteUIState) {
+        binding.rvRockets.visibleIf(!state.isLoading)
+        rocketAdapter.submitList(state.items.toMutableList())
+    }
+
+    private fun setNotFoundVisibility(state: FavouriteUIState) {
+        if (!state.isLoading) {
+            binding.llNotFound.visibleIf(state.items.isEmpty())
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.showShowNoItemFound.collect {
-                    binding.shimmer.setGone()
-                    binding.rvRockets.setGone()
-                    binding.llNotFound.setVisible()
-                }
+    }
+
+    private fun initAdapter() {
+        rocketAdapter = RocketListAdapter().apply {
+            itemClickListener = {
+                Timber.d(it.toString())
+            }
+            favItemClickListener = {
+                viewModel.deleteRocket(it.id)
             }
         }
     }
 
     private fun initRV() {
         binding.rvRockets.apply {
-            rocketAdapter = RocketListAdapter()
-            with(rocketAdapter) {
-                itemClickListener = {
-                    timber.log.Timber.d(it.toString())
-                }
-                favItemClickListener = {
-                    viewModel.deleteRocket(it.id)
-                }
-                adapter = this
-            }
+            adapter = rocketAdapter
+            layoutManager = LinearLayoutManager(
+                context, RecyclerView.VERTICAL, false
+            )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
