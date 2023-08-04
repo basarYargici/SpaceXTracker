@@ -59,7 +59,7 @@
                 style="@style/TextAppearance.Material3.TitleLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@{model.name}"
                 android:textColor="@color/black"
                 android:textStyle="bold"
