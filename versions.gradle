@@ -39,7 +39,7 @@ def deps = [
         ANDROID_CORE_KTX         : "androidx.core:core-ktx:${versions.Androidx.CORE_KTX}",
         ROOM_RUNTIME             : "androidx.room:room-runtime:${versions.Androidx.ROOM}",
         ROOM_KTX                 : "androidx.room:room-ktx:${versions.Androidx.ROOM}",
-        ROOM_COMPILER            : "androidx.room:room-compiler:${versions.Androidx.ROOM}",
+        ROOM_COMPILER            : "androidx.room:room-compiler:2.5.0-alpha03",
         ANDROID_APP_COMPAT       : "androidx.appcompat:appcompat:${versions.Androidx.APP_COMPAT}",
         ESPRESSO                 : "androidx.test.espresso:espresso-core:${versions.Androidx.ESPRESSO}",
         NAVIGATION_FRAGMENT      : "androidx.navigation:navigation-fragment-ktx:${versions.Androidx.NAVIGATION}",
