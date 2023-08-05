@@ -17,7 +17,6 @@ class FavouritesViewModel @Inject constructor(
     private val getFavouriteRocketUseCase: GetFavouriteRocketUseCase,
     private val deleteFavouriteRocketUseCase: DeleteFavouriteRocketUseCase
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(FavouriteUIState(true, emptyList()))
     var uiState = _uiState.asStateFlow()
     private var favList: MutableList<RocketUIItem>? = null

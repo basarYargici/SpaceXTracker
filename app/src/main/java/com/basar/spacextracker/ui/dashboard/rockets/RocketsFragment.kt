@@ -39,11 +39,14 @@ class RocketsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setListeners()
         setObservers()
         initAdapter()
         initRV()
         viewModel.getRocketList()
+    }
 
+    private fun setListeners() {
         binding.swiperefresh.setOnRefreshListener {
             viewModel.getRocketList().invokeOnCompletion {
                 binding.swiperefresh.isRefreshing = false

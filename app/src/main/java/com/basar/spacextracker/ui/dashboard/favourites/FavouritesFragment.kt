@@ -10,10 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentFavouritesBinding
+import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import com.basar.spacextracker.ext.visibleIf
+import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import com.basar.spacextracker.ui.dashboard.RocketSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -72,12 +75,21 @@ class FavouritesFragment : Fragment() {
     private fun initAdapter() {
         favouritesAdapter = FavouritesAdapter().apply {
             itemClickListener = {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    sharedVM.deletedItemId.emit(it.id)
-                    viewModel.deleteRocket(it.id)
-                }
+                navigateToDetails(it)
+            }
+            favItemClickListener = {
+                deleteRocket(it)
             }
         }
+    }
+
+    private fun navigateToDetails(it: RocketUIItem) = findNavController().navigate(
+        DashboardFragmentDirections.toDetailsFragment(it.id)
+    )
+
+    private fun deleteRocket(it: RocketUIItem) = viewLifecycleOwner.lifecycleScope.launch {
+        sharedVM.deletedItemId.emit(it.id)
+        viewModel.deleteRocket(it.id)
     }
 
     private fun initRV() {
