@@ -58,4 +58,5 @@ dependencies {
     implementation deps.SHIMMER
     implementation deps.TIMBER
     implementation deps.LIFECYCLE
+    implementation deps.SWIPER_REFRESH
 }

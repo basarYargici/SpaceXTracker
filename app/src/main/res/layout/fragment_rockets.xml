@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.rockets.RocketsFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRockets"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_rocket" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer"
         android:layout_width="match_parent"
@@ -20,14 +35,5 @@
         <include layout="@layout/placeholder_rockets" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRockets"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_rocket" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

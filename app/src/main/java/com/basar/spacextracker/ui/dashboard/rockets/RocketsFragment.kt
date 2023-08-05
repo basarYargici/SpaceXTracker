@@ -43,6 +43,12 @@ class RocketsFragment : Fragment() {
         initAdapter()
         initRV()
         viewModel.getRocketList()
+
+        binding.swiperefresh.setOnRefreshListener {
+            viewModel.getRocketList().invokeOnCompletion {
+                binding.swiperefresh.isRefreshing = false
+            }
+        }
     }
 
     private fun setObservers() {
@@ -58,9 +64,8 @@ class RocketsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedVM.deletedItemId.collect { id ->
-                    val items = viewModel.uiState.value.items
-                    items.firstOrNull { it.id == id }?.isFavourite = false
-                    rocketAdapter.submitList(items.toList())
+                    viewModel.unfavouredRocket(id)
+                    rocketAdapter.submitList(viewModel.uiState.value.items.toList())
                 }
             }
         }
@@ -107,5 +112,10 @@ class RocketsFragment : Fragment() {
                 context, RecyclerView.VERTICAL, false
             )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

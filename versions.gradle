@@ -15,6 +15,7 @@ def versions = [
                 EXT              : "1.1.3",
                 LIFECYCLE        : "2.4.1",
                 SAFE_ARGS        : "2.4.2",
+                SWIPER_REFRESH   : "1.2.0-alpha01"
         ],
         MATERIAL           : "1.6.1",
         JUNIT              : "4.13.2",
@@ -38,7 +39,7 @@ def deps = [
         ANDROID_CORE_KTX         : "androidx.core:core-ktx:${versions.Androidx.CORE_KTX}",
         ROOM_RUNTIME             : "androidx.room:room-runtime:${versions.Androidx.ROOM}",
         ROOM_KTX                 : "androidx.room:room-ktx:${versions.Androidx.ROOM}",
-        ROOM_COMPILER            : "androidx.room:room-compiler:2.5.0-alpha03",
+        ROOM_COMPILER            : "androidx.room:room-compiler:${versions.Androidx.ROOM}",
         ANDROID_APP_COMPAT       : "androidx.appcompat:appcompat:${versions.Androidx.APP_COMPAT}",
         ESPRESSO                 : "androidx.test.espresso:espresso-core:${versions.Androidx.ESPRESSO}",
         NAVIGATION_FRAGMENT      : "androidx.navigation:navigation-fragment-ktx:${versions.Androidx.NAVIGATION}",
@@ -48,6 +49,7 @@ def deps = [
         EXT                      : "androidx.test.ext:${versions.Androidx.EXT}",
         LIFECYCLE                : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.Androidx.LIFECYCLE}",
         SAFE_ARGS                : "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.Androidx.SAFE_ARGS}",
+        SWIPER_REFRESH           : "androidx.swiperefreshlayout:swiperefreshlayout:${versions.Androidx.SWIPER_REFRESH}",
 
         JUNIT                    : "junit:junit:${versions.JUNIT}",
         MATERIAL                 : "com.google.android.material:material:${versions.MATERIAL}",
