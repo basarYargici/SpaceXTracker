@@ -12,11 +12,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             tools:context=".ui.dashboard.rockets.RocketsFragment">
 
             <com.facebook.shimmer.ShimmerFrameLayout
@@ -32,6 +33,16 @@
 
                 <include layout="@layout/placeholder_details" />
             </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <include
+                android:id="@+id/llNotFound"
+                layout="@layout/layout_not_found"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/group"

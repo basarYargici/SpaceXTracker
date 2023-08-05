@@ -60,6 +60,7 @@ class RocketsFragment : Fragment() {
                 viewModel.uiState.collect { state ->
                     setShimmerLoadingVisibility(state)
                     setRocketList(state)
+                    setNotFoundVisibility(state)
                 }
             }
         }
@@ -82,6 +83,12 @@ class RocketsFragment : Fragment() {
         binding.rvRockets.visibleIf(!state.isLoading)
         if (state.items.isNotEmpty()) {
             rocketAdapter.submitList(state.items)
+        }
+    }
+
+    private fun setNotFoundVisibility(state: RocketsUIState) {
+        if (!state.isLoading) {
+            binding.llNotFound.root.visibleIf(state.items.isEmpty())
         }
     }
 

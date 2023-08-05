@@ -46,6 +46,7 @@ class DetailsFragment : Fragment() {
                 viewModel.uiState.collect { state ->
                     setShimmerLoadingVisibility(state.isLoading)
                     setRocket(state)
+                    setNotFoundVisibility(state)
                 }
             }
         }
@@ -63,6 +64,12 @@ class DetailsFragment : Fragment() {
             rocket.imageUrl?.let { url ->
                 detailsAdapter.submitList(url)
             }
+        }
+    }
+
+    private fun setNotFoundVisibility(state: DetailsUIState) {
+        if (!state.isLoading) {
+            binding.llNotFound.root.visibleIf(state.item == null)
         }
     }
 

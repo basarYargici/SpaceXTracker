@@ -68,7 +68,7 @@ class FavouritesFragment : Fragment() {
 
     private fun setNotFoundVisibility(state: FavouriteUIState) {
         if (!state.isLoading) {
-            binding.llNotFound.visibleIf(state.items.isEmpty())
+            binding.llNotFound.root.visibleIf(state.items.isEmpty())
         }
     }
 
