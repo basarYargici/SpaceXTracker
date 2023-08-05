@@ -15,7 +15,8 @@ def versions = [
                 EXT              : "1.1.3",
                 LIFECYCLE        : "2.4.1",
                 SAFE_ARGS        : "2.4.2",
-                SWIPER_REFRESH   : "1.2.0-alpha01"
+                SWIPER_REFRESH   : "1.2.0-alpha01",
+                ARCH_CORE_TEST   : "2.2.0",
         ],
         MATERIAL           : "1.6.1",
         JUNIT              : "4.13.2",
@@ -32,6 +33,9 @@ def versions = [
         SHIMMER            : "0.5.0",
         TIMBER             : "5.0.1",
         LOTTIE             : "5.2.0",
+        MOCKK              : "1.13.5",
+        TURBINE            : "1.0.0",
+        TRUTH              : "1.1.4",
 ]
 ext.versions = versions
 
@@ -50,6 +54,7 @@ def deps = [
         LIFECYCLE                : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.Androidx.LIFECYCLE}",
         SAFE_ARGS                : "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.Androidx.SAFE_ARGS}",
         SWIPER_REFRESH           : "androidx.swiperefreshlayout:swiperefreshlayout:${versions.Androidx.SWIPER_REFRESH}",
+        ARCH_CORE_TEST           : "androidx.arch.core:core-testing:${versions.Androidx.ARCH_CORE_TEST}",
 
         JUNIT                    : "junit:junit:${versions.JUNIT}",
         MATERIAL                 : "com.google.android.material:material:${versions.MATERIAL}",
@@ -66,6 +71,9 @@ def deps = [
         SHIMMER                  : "com.facebook.shimmer:shimmer:${versions.SHIMMER}",
         TIMBER                   : "com.jakewharton.timber:timber:${versions.TIMBER}",
         LOTTIE                   : "com.airbnb.android:lottie:${versions.LOTTIE}",
+        MOCKK                    : "io.mockk:mockk:${versions.MOCKK}",
+        TURBINE                  : "app.cash.turbine:turbine:${versions.TURBINE}",
+        TRUTH                    : "com.google.truth:truth:${versions.TRUTH}",
 ]
 ext.deps = deps
 
@@ -118,6 +126,10 @@ ext.implementationNetwork = this.&implementationNetwork
 def testUnit(DependencyHandler handler) {
     handler.add("testImplementation", deps.JUNIT)
     handler.add("testImplementation", deps.EXT)
+    handler.add("testImplementation", deps.MOCKK)
+    handler.add("testImplementation", deps.TURBINE)
+    handler.add("testImplementation", deps.TRUTH)
+    handler.add("testImplementation", deps.ARCH_CORE_TEST)
 }
 
 ext.testUnit = this.&testUnit
