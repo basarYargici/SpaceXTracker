@@ -69,5 +69,10 @@ class DetailsFragment : Fragment() {
     private fun initRV() {
         binding.rvImages.adapter = detailsAdapter
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
 

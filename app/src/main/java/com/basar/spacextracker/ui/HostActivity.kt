@@ -16,4 +16,9 @@ class HostActivity : AppCompatActivity() {
         _binding = ActivityHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

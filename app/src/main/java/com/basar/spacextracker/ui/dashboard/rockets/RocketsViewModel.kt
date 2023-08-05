@@ -55,4 +55,8 @@ class RocketsViewModel @Inject constructor(
     fun deleteRocket(id: String) = viewModelScope.launch(Dispatchers.IO) {
         deleteFavouriteRocketUseCase(id)
     }
+
+    fun unfavouredRocket(id: String) {
+        _uiState.value.items.firstOrNull { it.id == id }?.isFavourite = false
+    }
 }

@@ -43,5 +43,10 @@ class DashboardFragment : Fragment() {
             tab.text = tabNames[position]
         }.attach()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
 
