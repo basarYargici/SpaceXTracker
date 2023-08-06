@@ -1,13 +1,13 @@
 package com.basar.spacextracker.ui.detail
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.basar.spacextracker.domain.detail.GetRocketByIdUseCase
+import com.basar.spacextracker.ext.launchViewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,7 +18,7 @@ class DetailsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(DetailsUIState(true))
     var uiState = _uiState.asStateFlow()
 
-    fun getRocketList(id: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getRocketList(id: String) = launchViewModelScope {
         rocketDetailUseCase(id).onStart {
             _uiState.emit(
                 _uiState.value.copy(isLoading = true)
@@ -27,8 +27,6 @@ class DetailsViewModel @Inject constructor(
             _uiState.emit(
                 _uiState.value.copy(isLoading = false)
             )
-        }.catch {
-            Timber.d("e $it")
         }.collect {
             _uiState.emit(
                 _uiState.value.copy(isLoading = false, item = it)
