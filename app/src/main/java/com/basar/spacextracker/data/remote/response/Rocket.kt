@@ -7,47 +7,47 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Rocket(
     @SerializedName("active")
-    val active: Boolean?,
+    val active: Boolean? = null,
     @SerializedName("boosters")
-    val boosters: Int?,
+    val boosters: Int? = null,
     @SerializedName("company")
-    val company: String?,
+    val company: String? = null,
     @SerializedName("cost_per_launch")
-    val costPerLaunch: Int?,
+    val costPerLaunch: Int? = null,
     @SerializedName("country")
-    val country: String?,
+    val country: String? = null,
     @SerializedName("description")
-    val description: String?,
+    val description: String? = null,
     @SerializedName("diameter")
-    val diameter: Diameter?,
+    val diameter: Diameter? = null,
     @SerializedName("engines")
-    val engines: Engines?,
+    val engines: Engines? = null,
     @SerializedName("first_flight")
-    val firstFlight: String?,
+    val firstFlight: String? = null,
     @SerializedName("first_stage")
-    val firstStage: FirstStage?,
+    val firstStage: FirstStage? = null,
     @SerializedName("flickr_images")
-    val flickrImages: List<String>?,
+    val flickrImages: List<String>? = null,
     @SerializedName("height")
-    val height: Height?,
+    val height: Height? = null,
     @SerializedName("id")
-    val id: String?,
+    val id: String? = null,
     @SerializedName("landing_legs")
-    val landingLegs: LandingLegs?,
+    val landingLegs: LandingLegs? = null,
     @SerializedName("mass")
-    val mass: Mass?,
+    val mass: Mass? = null,
     @SerializedName("name")
-    val name: String?,
+    val name: String? = null,
     @SerializedName("payload_weights")
-    val payloadWeights: List<PayloadWeight>?,
+    val payloadWeights: List<PayloadWeight>? = null,
     @SerializedName("second_stage")
-    val secondStage: SecondStage?,
+    val secondStage: SecondStage? = null,
     @SerializedName("stages")
-    val stages: Int?,
+    val stages: Int? = null,
     @SerializedName("success_rate_pct")
-    val successRatePct: Int?,
+    val successRatePct: Int? = null,
     @SerializedName("type")
-    val type: String?,
+    val type: String? = null,
     @SerializedName("wikipedia")
-    val wikipedia: String?
+    val wikipedia: String? = null
 ) : Parcelable

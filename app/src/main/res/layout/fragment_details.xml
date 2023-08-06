@@ -37,7 +37,7 @@
             <include
                 android:id="@+id/llNotFound"
                 layout="@layout/layout_not_found"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +118,7 @@
                 android:layout_marginTop="8dp"
                 android:drawablePadding="4dp"
                 android:gravity="center_vertical"
-                android:text='@{model.weight + " engines"}'
+                android:text='@{model.engineCount + " engines"}'
                 app:drawableLeftCompat="@drawable/ic_engine"
                 app:layout_constraintEnd_toEndOf="@+id/tvName"
                 app:layout_constraintStart_toStartOf="@+id/tvName"

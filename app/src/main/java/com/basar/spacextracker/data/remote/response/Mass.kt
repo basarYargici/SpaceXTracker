@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Mass(
     @SerializedName("kg")
-    val kg: Int?,
+    val kg: Int? = null,
     @SerializedName("lb")
-    val lb: Int?
+    val lb: Int? = null
 ) : Parcelable

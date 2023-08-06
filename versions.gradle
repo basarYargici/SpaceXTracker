@@ -125,7 +125,6 @@ ext.implementationNetwork = this.&implementationNetwork
 
 def testUnit(DependencyHandler handler) {
     handler.add("testImplementation", deps.JUNIT)
-    handler.add("testImplementation", deps.EXT)
     handler.add("testImplementation", deps.MOCKK)
     handler.add("testImplementation", deps.TURBINE)
     handler.add("testImplementation", deps.TRUTH)
