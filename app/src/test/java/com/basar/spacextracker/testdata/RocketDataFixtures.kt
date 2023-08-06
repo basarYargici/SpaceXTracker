@@ -66,7 +66,7 @@ object RocketDataFixtures {
     fun buildFavouriteRocketUIs(vararg ids: Int): List<RocketUIItem> {
         val rocketList = getRocketUIs()
         ids.forEach {
-            rocketList[it].isFavourite = true
+            rocketList[it - 1].isFavourite = true
         }
         return rocketList
     }

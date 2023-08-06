@@ -5,7 +5,7 @@ import com.basar.spacextracker.base.BaseVMTest
 import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
 import com.basar.spacextracker.domain.favourites.GetFavouriteRocketUseCase
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
-import com.basar.spacextracker.testdata.RocketDataFixtures
+import com.basar.spacextracker.testdata.RocketDataFixtures.buildFavouriteRocketUIs
 import com.google.common.truth.Truth
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -29,7 +29,7 @@ class FavouritesViewModelTest : BaseVMTest<FavouritesViewModel>() {
     fun `when favourited rockets are successfully fetched then set state to not loading and update the result item list`() =
         runBlocking {
             // Given
-            val expectedResponse: List<RocketUIItem> = RocketDataFixtures.buildFavouriteRocketUIs(1, 2)
+            val expectedResponse: List<RocketUIItem> = buildFavouriteRocketUIs(1, 2)
 
             // When
             coEvery { getFavouriteRocketUseCase() } coAnswers { flow { emit(expectedResponse) } }

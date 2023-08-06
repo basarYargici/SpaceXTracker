@@ -8,7 +8,10 @@ import com.basar.spacextracker.domain.favourites.DeleteFavouriteRocketUseCase
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
 import com.basar.spacextracker.ext.launchViewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,17 +27,16 @@ class RocketsViewModel @Inject constructor(
     private var rocketList: List<RocketUIItem> = emptyList()
 
     fun getRocketList() = launchViewModelScope {
-        getRemoteRockets().collect {
+        rocketUseCase().onStart {
+            _uiState.emit(
+                _uiState.value.copy(isLoading = true)
+            )
+        }.collect {
             rocketList = it ?: emptyList()
         }
+
         _uiState.emit(
             _uiState.value.copy(isLoading = false, items = rocketList)
-        )
-    }
-
-    private suspend fun getRemoteRockets(): Flow<List<RocketUIItem>?> = rocketUseCase().onStart {
-        _uiState.emit(
-            _uiState.value.copy(isLoading = true)
         )
     }
 
