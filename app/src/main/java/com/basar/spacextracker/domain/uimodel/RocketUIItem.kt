@@ -48,6 +48,22 @@ fun Rocket.toRocketUIItem() = RocketUIItem(
     engines?.number.toString()
 )
 
+fun Rocket.toRocketDetailUIItem() = RocketDetailUIItem(
+    id ?: "0",
+    flickrImages,
+    name,
+    active,
+    firstFlight,
+    country,
+    company,
+    wikipedia,
+    description,
+    height?.meters.toString(),
+    mass?.kg.toString(),
+    engines?.number.toString(),
+    isFavourite = false
+)
+
 fun RocketUIItem.toRocket() = LocalRocket(
     id = id,
     name = name ?: "",

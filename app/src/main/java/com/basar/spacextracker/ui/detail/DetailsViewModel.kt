@@ -18,7 +18,7 @@ class DetailsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(DetailsUIState(true))
     var uiState = _uiState.asStateFlow()
 
-    fun getRocketList(id: String) = launchViewModelScope {
+    fun getRocketDetailById(id: String) = launchViewModelScope {
         rocketDetailUseCase(id).onStart {
             _uiState.emit(
                 _uiState.value.copy(isLoading = true)

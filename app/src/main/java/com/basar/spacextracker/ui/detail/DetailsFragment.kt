@@ -37,7 +37,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setObservers()
         initRV()
-        viewModel.getRocketList(args.id)
+        viewModel.getRocketDetailById(args.id)
     }
 
     private fun setObservers() {

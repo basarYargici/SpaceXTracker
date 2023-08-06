@@ -4,9 +4,7 @@ import com.basar.spacextracker.data.remote.response.Engines
 import com.basar.spacextracker.data.remote.response.Height
 import com.basar.spacextracker.data.remote.response.Mass
 import com.basar.spacextracker.data.remote.response.Rocket
-import com.basar.spacextracker.domain.uimodel.RocketUIItem
-import com.basar.spacextracker.domain.uimodel.toRocket
-import com.basar.spacextracker.domain.uimodel.toRocketUIItem
+import com.basar.spacextracker.domain.uimodel.*
 import com.basar.spacextracker.data.local.model.Rocket as LocalRocket
 
 object RocketDataFixtures {
@@ -62,6 +60,8 @@ object RocketDataFixtures {
     fun getLocalRockets(): List<LocalRocket> = getRocketUIs().map(RocketUIItem::toRocket)
 
     fun getRocketUIs(): List<RocketUIItem> = getRockets().map(Rocket::toRocketUIItem)
+
+    fun getRocketDetailUIs(): List<RocketDetailUIItem> = getRockets().map(Rocket::toRocketDetailUIItem)
 
     fun buildFavouriteRocketUIs(vararg ids: Int): List<RocketUIItem> {
         val rocketList = getRocketUIs()
