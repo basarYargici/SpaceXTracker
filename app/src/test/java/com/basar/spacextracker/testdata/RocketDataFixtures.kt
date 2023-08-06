@@ -5,6 +5,8 @@ import com.basar.spacextracker.data.remote.response.Height
 import com.basar.spacextracker.data.remote.response.Mass
 import com.basar.spacextracker.data.remote.response.Rocket
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
+import com.basar.spacextracker.domain.uimodel.toRocket
+import com.basar.spacextracker.domain.uimodel.toRocketUIItem
 import com.basar.spacextracker.data.local.model.Rocket as LocalRocket
 
 object RocketDataFixtures {
@@ -59,57 +61,7 @@ object RocketDataFixtures {
 
     fun getLocalRockets(): List<LocalRocket> = getRocketUIs().map(RocketUIItem::toRocket)
 
-    fun getRocketUIs(): List<RocketUIItem> = listOf(
-        RocketUIItem(
-            id = "1",
-            imageUrl = listOf("https:1", "https:2"),
-            name = "Falcon 1",
-            country = "Republic of the Marshall Islands",
-            company = "Intel",
-            wikipedia = "Wiki",
-            description = "Description",
-            height = "22.25",
-            weight = "30146",
-            engineCount = "1",
-            isFavourite = false
-        ), RocketUIItem(
-            id = "2",
-            imageUrl = listOf("https:1", "https:2"),
-            name = "Falcon 9",
-            country = "United States",
-            company = "SpaceX",
-            wikipedia = "Wiki",
-            description = "Description",
-            height = "70",
-            weight = "549054",
-            engineCount = "9",
-            isFavourite = false
-        ), RocketUIItem(
-            id = "3",
-            imageUrl = listOf("https:1", "https:2"),
-            name = "Falcon Heavy",
-            country = "United States",
-            company = "Tesla",
-            wikipedia = "Wiki",
-            description = "Description",
-            height = "70",
-            weight = "1420788",
-            engineCount = "27",
-            isFavourite = false
-        ), RocketUIItem(
-            id = "4",
-            imageUrl = listOf("https:1", "https:2"),
-            name = "Starship",
-            country = "United States",
-            company = "Yargici",
-            wikipedia = "Wiki",
-            description = "Description",
-            height = "118",
-            weight = "1335000",
-            engineCount = "37",
-            isFavourite = false
-        )
-    )
+    fun getRocketUIs(): List<RocketUIItem> = getRockets().map(Rocket::toRocketUIItem)
 
     fun buildFavouriteRocketUIs(vararg ids: Int): List<RocketUIItem> {
         val rocketList = getRocketUIs()

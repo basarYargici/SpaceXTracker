@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.basar.spacextracker.databinding.FragmentRocketsBinding
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
+import com.basar.spacextracker.domain.uimodel.toRocket
 import com.basar.spacextracker.ext.visibleIf
 import com.basar.spacextracker.ui.dashboard.DashboardFragmentDirections
 import com.basar.spacextracker.ui.dashboard.RocketSharedViewModel

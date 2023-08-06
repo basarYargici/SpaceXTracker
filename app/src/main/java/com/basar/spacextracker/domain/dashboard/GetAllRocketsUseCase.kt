@@ -1,8 +1,10 @@
 package com.basar.spacextracker.domain.dashboard
 
+import com.basar.spacextracker.data.remote.response.Rocket
 import com.basar.spacextracker.domain.favourites.GetFavouriteRocketUseCase
 import com.basar.spacextracker.domain.repository.RocketRepository
 import com.basar.spacextracker.domain.uimodel.RocketUIItem
+import com.basar.spacextracker.domain.uimodel.toRocketUIItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.zip
@@ -18,31 +20,18 @@ class GetAllRocketsUseCase @Inject constructor(
 
     suspend operator fun invoke(): Flow<List<RocketUIItem>?> {
         return rocketRepository.getRocketList().map {
-            it?.map { rocket ->
-                with(rocket) {
-                    RocketUIItem(
-                        id ?: "0",
-                        flickrImages,
-                        name,
-                        country,
-                        company,
-                        wikipedia,
-                        description,
-                        height?.meters.toString(),
-                        mass?.kg.toString(),
-                        engines?.number.toString()
-                    )
-                }
-            }
+            it?.map(Rocket::toRocketUIItem)
         }.zip(getFavouriteRocketUseCase()) { itemList, favs ->
             rocketList = itemList ?: emptyList()
             favList = favs ?: emptyList()
-            rocketList.map { item ->
-                if (favList.firstOrNull { it.id == item.id } != null) {
-                    item.isFavourite = true
-                }
-            }
-            rocketList
+            setFavouritesInRocketList()
         }
+    }
+
+    private fun setFavouritesInRocketList(): List<RocketUIItem> = rocketList.map { item ->
+        if (favList.firstOrNull { it.id == item.id } != null) {
+            item.isFavourite = true
+        }
+        item
     }
 }
