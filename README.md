@@ -14,9 +14,8 @@ https://github.com/basarYargici/SpaceXTracker/assets/60785366/7b245271-19fd-4361
 - View upcoming SpaceX launches with details such as rocket information and origin.
 - Add rockets to favorites for quick access to them.
 - Remove rockets from favorites when no longer needed.
-- Swipe to Refresh: Update content effortlessly with a simple swipe gesture. Pull down the list of upcoming
-  launches or favorite rockets to fetch the latest data from SpaceX APIs, providing up-to-date information
-  without leaving the current screen.
+- Swipe to Refresh: Update content effortlessly with a simple swipe gesture. Pull down the list of rockets to
+  fetch the latest data from SpaceX APIs, providing up-to-date information without leaving the current screen.
 - Smooth and efficient user experience thanks to the integration of Kotlin Coroutines and Flows.
 - Easily navigate through different app screens using the Navigation Component.
 - Manage dependency injection with Hilt, making the codebase clean and maintainable.
